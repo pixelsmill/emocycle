@@ -1,0 +1,119 @@
+#page-container {
+    width: 760px;
+    margin: auto;
+    background: red;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: Arial, Helvetica, Verdana, Sans-serif;
+    font-size: 12px;
+    color: #666666;
+    background: #ffffff;
+}
+#entete {
+    height: 150px;
+    margin-right: 300px;
+}
+#colndroite {
+    float: right;
+    width: 300px;
+}
+#contenu {
+    margin-right: 300px;
+}
+#ventecc {
+    clear: both;
+    margin-right: 300px;
+}
+.prob {
+    color: red;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 10px;
+ }
+.accept {
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    text-align: center;
+ }
+ #cartes {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+ }
+#pied {
+    clear: both;
+    height: 80px;
+    margin-right: 300px;
+}
+#copyright {
+    width: 450px;
+    margin: auto;
+}
+#droits {
+    width: 400px;
+    height: 50px;
+    float: right;
+}
+p.droits {
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+}
+img.logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+img.barmauv {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+img.barfin {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+p.red {
+    text-align: center;
+    font-weight: bold;
+}
+h1 {
+    color: #990066;
+    text-align: center;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+h2 {
+    color: #990066;
+    text-align: center;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+h3 {
+    text-align: center;
+    margin-top: 0px;
+}
+.centre {
+    text-align: center;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+}
+/* 
+    Created on : 2016-08-11, 08:41:12
+    Author     : Pierre
+*/
+
