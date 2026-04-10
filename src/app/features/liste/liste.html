@@ -1,21 +1,27 @@
-<main class="liste" [attr.aria-label]="'Émotions de la famille ' + familleLabel()">
+<div class="liste" role="main" [attr.aria-label]="'Émotions de la famille ' + familleLabel()">
 
   <header class="liste__header">
     <h1 class="liste__titre">{{ familleLabel() }}</h1>
   </header>
 
-  <nav class="liste__nav" aria-label="Liste des émotions">
-    @for (emotion of emotions(); track emotion.id) {
-      <button
-        class="liste__item"
-        [attr.aria-label]="'Choisir ' + emotion.name"
-        (click)="onEmotionSelect(emotion)"
-      >
-        {{ emotion.name }}
-      </button>
-    } @empty {
-      <p class="liste__vide">Aucune émotion trouvée.</p>
-    }
-  </nav>
+  <div class="liste__scroll">
+    <nav class="liste__nav" aria-label="Liste des émotions">
+      @for (emotion of emotions(); track emotion.id) {
+        <button
+          class="liste__item"
+          [attr.aria-label]="'Choisir ' + emotion.name"
+          (click)="onEmotionSelect(emotion)"
+        >
+          {{ emotion.name }}
+        </button>
+      } @empty {
+        <p class="liste__vide">Aucune émotion trouvée.</p>
+      }
+    </nav>
+  </div>
 
-</main>
+  <div class="liste__nav-bas">
+    <button class="liste__btn" aria-label="Retour à l'accueil" (click)="goBack()">←</button>
+  </div>
+
+</div>

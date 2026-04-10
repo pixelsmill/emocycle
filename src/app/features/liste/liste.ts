@@ -69,4 +69,9 @@ export class ListeComponent implements OnInit {
     this.session.select(emotion);
     this.router.navigate(['/emotion', emotion.id]);
   }
+
+  goBack(): void {
+    this.theme.resetFamily();
+    this.router.navigate(['/']);
+  }
 }

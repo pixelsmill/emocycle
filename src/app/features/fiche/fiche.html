@@ -1,4 +1,4 @@
-<article class="fiche" [attr.aria-label]="emotion()?.name ?? 'Fiche émotion'">
+<div class="fiche" [attr.aria-label]="emotion()?.name ?? 'Fiche émotion'" role="main">
 
   @if (isLoading()) {
     <div class="fiche__loading" aria-live="polite" aria-busy="true">
@@ -7,60 +7,66 @@
   }
 
   @if (!isLoading() && emotion(); as e) {
+
     <header class="fiche__header">
       <h1 class="fiche__nom">{{ e.name }}</h1>
     </header>
 
-    @if (content(); as c) {
-      <div class="fiche__contenu">
+    <div class="fiche__scroll">
+      @if (content(); as c) {
+        <div class="fiche__contenu">
 
-        @if (c.examples) {
-          <section class="fiche__section" aria-labelledby="section-exemples">
-            <h2 class="fiche__section-label" id="section-exemples">Exemples</h2>
-            <div class="fiche__section-body fiche__section-body--list"
-                 [innerHTML]="c.examples | fiche_md"></div>
-          </section>
-        }
+          @if (c.examples) {
+            <section class="fiche__section" aria-labelledby="section-exemples">
+              <h2 class="fiche__section-label" id="section-exemples">Exemples</h2>
+              <div class="fiche__section-body fiche__section-body--list"
+                   [innerHTML]="c.examples | fiche_md"></div>
+            </section>
+          }
 
-        @if (c.description) {
-          <section class="fiche__section" aria-labelledby="section-definition">
-            <h2 class="fiche__section-label" id="section-definition">Définition</h2>
-            <div class="fiche__section-body" [innerHTML]="c.description | fiche_md"></div>
-          </section>
-        }
+          @if (c.description) {
+            <section class="fiche__section" aria-labelledby="section-definition">
+              <h2 class="fiche__section-label" id="section-definition">Définition</h2>
+              <div class="fiche__section-body" [innerHTML]="c.description | fiche_md"></div>
+            </section>
+          }
 
-        @if (c.utility) {
-          <section class="fiche__section" aria-labelledby="section-utilite">
-            <h2 class="fiche__section-label" id="section-utilite">À quoi ça sert</h2>
-            <div class="fiche__section-body" [innerHTML]="c.utility | fiche_md"></div>
-          </section>
-        }
+          @if (c.utility) {
+            <section class="fiche__section" aria-labelledby="section-utilite">
+              <h2 class="fiche__section-label" id="section-utilite">À quoi ça sert</h2>
+              <div class="fiche__section-body" [innerHTML]="c.utility | fiche_md"></div>
+            </section>
+          }
 
-        @if (c.typicalErrors) {
-          <section class="fiche__section" aria-labelledby="section-erreurs">
-            <h2 class="fiche__section-label" id="section-erreurs">Erreurs typiques</h2>
-            <div class="fiche__section-body" [innerHTML]="c.typicalErrors | fiche_md"></div>
-          </section>
-        }
+          @if (c.typicalErrors) {
+            <section class="fiche__section" aria-labelledby="section-erreurs">
+              <h2 class="fiche__section-label" id="section-erreurs">Erreurs typiques</h2>
+              <div class="fiche__section-body" [innerHTML]="c.typicalErrors | fiche_md"></div>
+            </section>
+          }
 
-      </div>
-    }
+        </div>
+      }
+    </div>
 
-    <!-- Espace pour le bouton fixe -->
-    <div class="fiche__spacer-btn" aria-hidden="true"></div>
+    <!-- Nav bas — même structure que cycle__nav -->
+    <div class="fiche__nav" role="navigation" aria-label="Navigation">
+      <button
+        class="fiche__btn"
+        aria-label="Retour à la liste"
+        (click)="goBack()"
+      >
+        ←
+      </button>
+      <button
+        class="fiche__btn fiche__btn--next"
+        [attr.aria-label]="'Commencer le cycle pour ' + e.name"
+        (click)="onStartCycle()"
+      >
+        Votre {{ nomSansArticle() }} a quelque chose à vous dire
+      </button>
+    </div>
+
   }
 
-</article>
-
-<!-- Bouton fixe en bas — toujours présent (Story 3.2) -->
-@if (!isLoading() && emotion(); as e) {
-  <div class="fiche__btn-fixe-wrap">
-    <button
-      class="fiche__btn-fixe"
-      [attr.aria-label]="'Commencer le cycle pour ' + e.name"
-      (click)="onStartCycle()"
-    >
-      Votre {{ nomSansArticle() }} a quelque chose à vous dire
-    </button>
-  </div>
-}
+</div>

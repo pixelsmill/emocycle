@@ -99,4 +99,13 @@ export class FicheComponent implements OnInit {
     const id = this.emotionId();
     this.router.navigate(['/cycle', id]);
   }
+
+  goBack(): void {
+    const family = this.emotion()?.family;
+    if (family) {
+      this.router.navigate(['/famille', family]);
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
 }
