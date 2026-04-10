@@ -1,0 +1,33 @@
+<main class="accueil" aria-label="Émocycle — accueil">
+  <div class="accueil__content fade-in">
+
+    <header class="accueil__header">
+      <h1 class="accueil__titre">Émocycle</h1>
+    </header>
+
+    <div class="accueil__baseline" aria-label="L'émotion que vous vivez a un message.">
+      <p class="accueil__baseline-line">L'émotion que vous vivez</p>
+      <p class="accueil__baseline-line accueil__baseline-line--bottom">a un message.</p>
+    </div>
+
+    <nav class="accueil__palette" aria-label="Choisir une famille d'émotions">
+      @for (famille of familles; track famille.id) {
+        <button
+          class="accueil__rond"
+          [class]="'accueil__rond--' + famille.id"
+          [attr.aria-label]="famille.ariaLabel"
+          (click)="onFamilleSelect(famille)"
+        >
+          <span class="accueil__rond-label" aria-hidden="true">{{ famille.label }}</span>
+        </button>
+      }
+    </nav>
+
+  </div>
+
+  <!-- Lien discret vers les crédits (FR18) -->
+  <footer class="accueil__footer">
+    <a class="accueil__credits-lien" routerLink="/credits" aria-label="Voir les crédits du projet">Crédits</a>
+  </footer>
+
+</main>

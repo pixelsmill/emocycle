@@ -1,0 +1,74 @@
+<div
+  class="sortie"
+  role="main"
+  [attr.aria-label]="'Sortie — ' + (emotion()?.name ?? '')"
+>
+
+  <!-- Nom de l'émotion -->
+  @if (emotion(); as e) {
+    <header class="sortie__header">
+      <p class="sortie__emotion-nom">{{ e.name }}</p>
+    </header>
+  }
+
+  <!-- Contenu central (message + boutons) -->
+  <div class="sortie__content">
+
+    @if (state() === 'initial') {
+      <p class="sortie__message">Prenez soin de vous.<br>Revenez quand vous voulez.</p>
+
+      <div class="sortie__actions">
+        <button
+          class="sortie__btn sortie__btn--merci"
+          aria-label="Merci, ce cycle m'a aidé"
+          (click)="onMerci()"
+        >
+          Merci
+        </button>
+        <button
+          class="sortie__btn sortie__btn--pas-vraiment"
+          aria-label="Pas vraiment, je ne me sens pas mieux"
+          (click)="onPasVraiment()"
+        >
+          Pas vraiment
+        </button>
+      </div>
+    }
+
+    @if (state() === 'merci') {
+      <p class="sortie__message">C'est bien. Continuez à vous écouter.</p>
+      <button
+        class="sortie__btn sortie__btn--recommencer"
+        aria-label="Recommencer depuis l'accueil"
+        (click)="recommencer()"
+      >
+        Recommencer
+      </button>
+    }
+
+    @if (state() === 'pas-vraiment') {
+      <p class="sortie__message sortie__message--humble">
+        Ce n'est pas grave. Vous avez eu le courage d'essayer, et c'est déjà beaucoup.
+      </p>
+      <button
+        class="sortie__btn sortie__btn--recommencer"
+        aria-label="Recommencer depuis l'accueil"
+        (click)="recommencer()"
+      >
+        Recommencer
+      </button>
+    }
+
+  </div>
+
+  <!-- Filet de sécurité (FR17) -->
+  <aside class="sortie__filet" aria-label="Numéros d'écoute">
+    <p class="sortie__filet-texte">
+      Si vous traversez un moment difficile, vous pouvez appeler le
+      <a class="sortie__filet-lien" href="tel:3114">3114</a>
+      ou SOS Amitié au
+      <a class="sortie__filet-lien" href="tel:0972394050">09&nbsp;72&nbsp;39&nbsp;40&nbsp;50</a>.
+    </p>
+  </aside>
+
+</div>

@@ -1,0 +1,42 @@
+# Sprint Status — Emotions MVP
+# STATUS DEFINITIONS:
+#   not-started      : Story non commencée
+#   ready-for-dev    : Story prête pour développement
+#   in-progress      : Story en cours de développement
+#   review           : Story implémentée, en attente de revue
+#   done             : Story terminée et validée
+
+project: emotions
+last_updated: 2026-04-10
+
+development_status:
+  # Epic 1 — Fondations : PWA, données et structure
+  1-1-pwa-setup-routing: review
+  1-2-data-model-larivey: review
+  1-3-services-data-session: review
+  1-4-design-system-theme: review
+
+  # Epic 2 — L'entrée : accueil et sélection de l'émotion
+  2-1-ecran-accueil-palette: review
+  2-2-liste-emotions-famille: review
+
+  # Epic 3 — La fiche : découverte du contenu Larivey
+  3-1-fiche-emotion: review
+  3-2-bouton-fixe-cycle: review
+  3-3-fallback-contenu: review
+
+  # Epic 4 — Le cycle : traverser l'émotion
+  4-1-templates-cycle-accord: review
+  4-2-diaporama-cycle: review
+  4-3-contenu-etapes-guides: review
+
+  # Epic 5 — La sortie et les crédits
+  5-1-ecran-sortie: review
+  5-2-filet-securite: review
+  5-3-page-credits: review
+
+  # Epic 6 — Qualité et mise en production
+  6-1-service-worker-offline: review
+  6-2-audit-accessibilite: review
+  6-3-audit-performance-pwa: review
+  6-4-conformite-rgpd: review

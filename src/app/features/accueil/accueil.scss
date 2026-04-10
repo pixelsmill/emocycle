@@ -1,0 +1,148 @@
+.accueil {
+  min-height: 100dvh;
+  background-color: var(--bg-warm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  position: relative;
+}
+
+.accueil__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 640px;
+}
+
+/* ── Titre ───────────────────────────────────────────────────── */
+.accueil__titre {
+  font-size: clamp(72px, 15vw, 140px);
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 2rem;
+}
+
+/* ── Baseline : column sur mobile, row sur desktop ───────────── */
+.accueil__baseline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 3.5rem;
+  text-align: center;
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 90px;
+    padding-left: 20px;
+    text-align: left;
+  }
+}
+
+.accueil__baseline-line {
+  font-size: clamp(18px, 3vw, 24px);
+  font-style: italic;
+  color: var(--text);
+  opacity: 0.7;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ── Palette de 6 ronds ─────────────────────────────────────── */
+.accueil__palette {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.accueil__rond {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  /* Taille tactile ≥ 44px */
+  min-width: 72px;
+  min-height: 44px;
+
+  &:focus-visible {
+    outline: 3px solid var(--text);
+    outline-offset: 6px;
+    border-radius: 50%;
+  }
+}
+
+/* Cercle coloré */
+.accueil__rond::before {
+  content: '';
+  display: block;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.accueil__rond:hover::before,
+.accueil__rond:focus-visible::before {
+  transform: scale(1.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Couleurs des ronds par famille */
+.accueil__rond--joie::before      { background-color: var(--color-joie); }
+.accueil__rond--amour::before     { background-color: var(--color-amour); }
+.accueil__rond--desir::before     { background-color: var(--color-desir); }
+.accueil__rond--tristesse::before { background-color: var(--color-tristesse); }
+.accueil__rond--colere::before    { background-color: var(--color-colere); }
+.accueil__rond--peur::before      { background-color: var(--color-peur); }
+
+/* ── Footer crédits ─────────────────────────────────────────── */
+.accueil__footer {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.accueil__credits-lien {
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0.35;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 0.7;
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--text);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* Label sous le rond */
+.accueil__rond-label {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text);
+  opacity: 0.65;
+  text-align: center;
+  letter-spacing: 0.04em;
+}

@@ -1,0 +1,713 @@
+[
+  {
+    "id": "admiration",
+    "name": "L'admiration",
+    "family": "amour",
+    "valence": "positive",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "admiration.md"
+  },
+  {
+    "id": "amour",
+    "name": "L'amour",
+    "family": "amour",
+    "valence": "positive",
+    "type": "mixte",
+    "gender": "m",
+    "contentFile": "amour.md"
+  },
+  {
+    "id": "attendrissement",
+    "name": "L'attendrissement",
+    "family": "amour",
+    "valence": "positive",
+    "type": "simple",
+    "gender": "m",
+    "contentFile": "attendrissement.md"
+  },
+  {
+    "id": "compassion",
+    "name": "La compassion",
+    "family": "amour",
+    "valence": "positive",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "compassion.md"
+  },
+  {
+    "id": "jalousie-amour",
+    "name": "La jalousie amoureuse",
+    "family": "amour",
+    "valence": "negative",
+    "type": "mixte",
+    "gender": "f",
+    "contentFile": "jalousie-amour.md"
+  },
+  {
+    "id": "pitie",
+    "name": "La pitié",
+    "family": "amour",
+    "valence": "positive",
+    "type": "mixte",
+    "gender": "f",
+    "contentFile": "pitie.md"
+  },
+  {
+    "id": "ecoeurement",
+    "name": "L'écœurement",
+    "family": "colere",
+    "valence": "negative",
+    "type": "mixte",
+    "gender": "m",
+    "contentFile": "ecoeurement.md"
+  },
+  {
+    "id": "hostilite",
+    "name": "L'hostilité",
+    "family": "colere",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "hostilite.md"
+  },
+  {
+    "id": "colere",
+    "name": "La colère",
+    "family": "colere",
+    "valence": "negative",
+    "type": "simple",
+    "gender": "f",
+    "contentFile": "colere.md"
+  },
+  {
+    "id": "frustration",
+    "name": "La frustration",
+    "family": "colere",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "frustration.md"
+  },
+  {
+    "id": "haine",
+    "name": "La haine",
+    "family": "colere",
+    "valence": "negative",
+    "type": "simple",
+    "gender": "f",
+    "contentFile": "haine.md"
+  },
+  {
+    "id": "jalousie",
+    "name": "La jalousie",
+    "family": "colere",
+    "valence": "negative",
+    "type": "mixte",
+    "gender": "f",
+    "contentFile": "jalousie.md"
+  },
+  {
+    "id": "manipulation",
+    "name": "La manipulation",
+    "family": "colere",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "manipulation.md"
+  },
+  {
+    "id": "rage",
+    "name": "La rage",
+    "family": "colere",
+    "valence": "negative",
+    "type": "simple",
+    "gender": "f",
+    "contentFile": "rage.md"
+  },
+  {
+    "id": "rancune",
+    "name": "La rancune",
+    "family": "colere",
+    "valence": "negative",
+    "type": "mixte",
+    "gender": "f",
+    "contentFile": "rancune.md"
+  },
+  {
+    "id": "revolte",
+    "name": "La révolte",
+    "family": "colere",
+    "valence": "negative",
+    "type": "simple",
+    "gender": "f",
+    "contentFile": "revolte.md"
+  },
+  {
+    "id": "violence",
+    "name": "La violence",
+    "family": "colere",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "violence.md"
+  },
+  {
+    "id": "degout",
+    "name": "Le dégoût",
+    "family": "colere",
+    "valence": "negative",
+    "type": "simple",
+    "gender": "m",
+    "contentFile": "degout.md"
+  },
+  {
+    "id": "mepris",
+    "name": "Le mépris",
+    "family": "colere",
+    "valence": "negative",
+    "type": "mixte",
+    "gender": "m",
+    "contentFile": "mepris.md"
+  },
+  {
+    "id": "ressentiment",
+    "name": "Le ressentiment",
+    "family": "colere",
+    "valence": "negative",
+    "type": "mixte",
+    "gender": "m",
+    "contentFile": "ressentiment.md"
+  },
+  {
+    "id": "envie",
+    "name": "L'envie",
+    "family": "desir",
+    "valence": "positive",
+    "type": "simple",
+    "gender": "f",
+    "contentFile": "envie.md"
+  },
+  {
+    "id": "impatience",
+    "name": "L'impatience",
+    "family": "desir",
+    "valence": "negative",
+    "type": "simple",
+    "gender": "f",
+    "contentFile": "impatience.md"
+  },
+  {
+    "id": "febrilite",
+    "name": "La fébrilité",
+    "family": "desir",
+    "valence": "positive",
+    "type": "repoussee",
+    "gender": "f",
+    "contentFile": "febrilite.md"
+  },
+  {
+    "id": "desir",
+    "name": "Le désir",
+    "family": "desir",
+    "valence": "positive",
+    "type": "simple",
+    "gender": "m",
+    "contentFile": "desir.md"
+  },
+  {
+    "id": "estime",
+    "name": "L'estime",
+    "family": "joie",
+    "valence": "positive",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "estime.md"
+  },
+  {
+    "id": "fierte",
+    "name": "La fierté",
+    "family": "joie",
+    "valence": "positive",
+    "type": "simple",
+    "gender": "f",
+    "contentFile": "fierte.md"
+  },
+  {
+    "id": "reconnaissance",
+    "name": "La reconnaissance",
+    "family": "joie",
+    "valence": "positive",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "reconnaissance.md"
+  },
+  {
+    "id": "contentement",
+    "name": "Le contentement",
+    "family": "joie",
+    "valence": "positive",
+    "type": "simple",
+    "gender": "m",
+    "contentFile": "contentement.md"
+  },
+  {
+    "id": "plaisir",
+    "name": "Le plaisir",
+    "family": "joie",
+    "valence": "positive",
+    "type": "simple",
+    "gender": "m",
+    "contentFile": "plaisir.md"
+  },
+  {
+    "id": "agitation",
+    "name": "L'agitation",
+    "family": "peur",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "f",
+    "contentFile": "agitation.md"
+  },
+  {
+    "id": "angoisse",
+    "name": "L'angoisse",
+    "family": "peur",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "f",
+    "contentFile": "angoisse.md"
+  },
+  {
+    "id": "anxiete",
+    "name": "L'anxiété",
+    "family": "peur",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "f",
+    "contentFile": "anxiete.md"
+  },
+  {
+    "id": "embarras",
+    "name": "L'embarras",
+    "family": "peur",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "m",
+    "contentFile": "embarras.md"
+  },
+  {
+    "id": "evanouissement",
+    "name": "L'évanouissement",
+    "family": "peur",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "m",
+    "contentFile": "evanouissement.md"
+  },
+  {
+    "id": "inquietude",
+    "name": "L'inquiétude",
+    "family": "peur",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "inquietude.md"
+  },
+  {
+    "id": "boule",
+    "name": "La boule dans la gorge",
+    "family": "peur",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "f",
+    "contentFile": "boule.md"
+  },
+  {
+    "id": "confusion",
+    "name": "La confusion",
+    "family": "peur",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "confusion.md"
+  },
+  {
+    "id": "gene",
+    "name": "La gêne",
+    "family": "peur",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "f",
+    "contentFile": "gene.md"
+  },
+  {
+    "id": "nausee",
+    "name": "La nausée",
+    "family": "peur",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "f",
+    "contentFile": "nausee.md"
+  },
+  {
+    "id": "nervosite",
+    "name": "La nervosité",
+    "family": "peur",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "f",
+    "contentFile": "nervosite.md"
+  },
+  {
+    "id": "panique",
+    "name": "La panique",
+    "family": "peur",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "f",
+    "contentFile": "panique.md"
+  },
+  {
+    "id": "peur",
+    "name": "La peur",
+    "family": "peur",
+    "valence": "negative",
+    "type": "simple",
+    "gender": "f",
+    "contentFile": "peur.md"
+  },
+  {
+    "id": "tension",
+    "name": "La tension",
+    "family": "peur",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "f",
+    "contentFile": "tension.md"
+  },
+  {
+    "id": "timide",
+    "name": "La timidité",
+    "family": "peur",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "timide.md"
+  },
+  {
+    "id": "transpiration",
+    "name": "La transpiration",
+    "family": "peur",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "f",
+    "contentFile": "transpiration.md"
+  },
+  {
+    "id": "begaiement",
+    "name": "Le bégaiement",
+    "family": "peur",
+    "valence": "negative",
+    "type": "inconnu",
+    "gender": "m",
+    "contentFile": "begaiement.md"
+  },
+  {
+    "id": "malaise",
+    "name": "Le malaise",
+    "family": "peur",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "m",
+    "contentFile": "malaise.md"
+  },
+  {
+    "id": "rougissement",
+    "name": "Le rougissement",
+    "family": "peur",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "m",
+    "contentFile": "rougissement.md"
+  },
+  {
+    "id": "stress",
+    "name": "Le stress",
+    "family": "peur",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "m",
+    "contentFile": "stress.md"
+  },
+  {
+    "id": "tremblement",
+    "name": "Le tremblement",
+    "family": "peur",
+    "valence": "negative",
+    "type": "inconnu",
+    "gender": "m",
+    "contentFile": "tremblement.md"
+  },
+  {
+    "id": "tics",
+    "name": "Les tics",
+    "family": "peur",
+    "valence": "negative",
+    "type": "inconnu",
+    "gender": "m",
+    "contentFile": "tics.md"
+  },
+  {
+    "id": "fige",
+    "name": "Se sentir figé",
+    "family": "peur",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "m",
+    "contentFile": "fige.md"
+  },
+  {
+    "id": "abandon",
+    "name": "L'abandon",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "m",
+    "contentFile": "abandon.md"
+  },
+  {
+    "id": "ambivalence",
+    "name": "L'ambivalence",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "ambivalence.md"
+  },
+  {
+    "id": "amertume",
+    "name": "L'amertume",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "inconnu",
+    "gender": "f",
+    "contentFile": "amertume.md"
+  },
+  {
+    "id": "ennui",
+    "name": "L'ennui",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "simple",
+    "gender": "m",
+    "contentFile": "ennui.md"
+  },
+  {
+    "id": "humiliation",
+    "name": "L'humiliation",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "humiliation.md"
+  },
+  {
+    "id": "impuissance",
+    "name": "L'impuissance",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "impuissance.md"
+  },
+  {
+    "id": "indifference",
+    "name": "L'indifférence",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "indifference.md"
+  },
+  {
+    "id": "cephalee",
+    "name": "La céphalée",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "f",
+    "contentFile": "cephalee.md"
+  },
+  {
+    "id": "culpabilite",
+    "name": "La culpabilité",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "mixte",
+    "gender": "f",
+    "contentFile": "culpabilite.md"
+  },
+  {
+    "id": "deception",
+    "name": "La déception",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "deception.md"
+  },
+  {
+    "id": "fatigue",
+    "name": "La fatigue",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "f",
+    "contentFile": "fatigue.md"
+  },
+  {
+    "id": "honte",
+    "name": "La honte",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "mixte",
+    "gender": "f",
+    "contentFile": "honte.md"
+  },
+  {
+    "id": "migraine",
+    "name": "La migraine",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "f",
+    "contentFile": "migraine.md"
+  },
+  {
+    "id": "nostalgie",
+    "name": "La nostalgie",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "simple",
+    "gender": "f",
+    "contentFile": "nostalgie.md"
+  },
+  {
+    "id": "paresse",
+    "name": "La paresse",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "paresse.md"
+  },
+  {
+    "id": "solitude",
+    "name": "La solitude",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "solitude.md"
+  },
+  {
+    "id": "trahison",
+    "name": "La trahison",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "f",
+    "contentFile": "trahison.md"
+  },
+  {
+    "id": "tristesse",
+    "name": "La tristesse",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "simple",
+    "gender": "f",
+    "contentFile": "tristesse.md"
+  },
+  {
+    "id": "decouragement",
+    "name": "Le découragement",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "m",
+    "contentFile": "decouragement.md"
+  },
+  {
+    "id": "desespoir",
+    "name": "Le désespoir",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "m",
+    "contentFile": "desespoir.md"
+  },
+  {
+    "id": "regret",
+    "name": "Le regret",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "m",
+    "contentFile": "regret.md"
+  },
+  {
+    "id": "rejet",
+    "name": "Le rejet",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "m",
+    "contentFile": "rejet.md"
+  },
+  {
+    "id": "vide",
+    "name": "Le sentiment de vide",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "repoussee",
+    "gender": "m",
+    "contentFile": "vide.md"
+  },
+  {
+    "id": "blesse",
+    "name": "Se sentir blessé",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "m",
+    "contentFile": "blesse.md"
+  },
+  {
+    "id": "deprime",
+    "name": "Se sentir déprimé",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "m",
+    "contentFile": "deprime.md"
+  },
+  {
+    "id": "distant",
+    "name": "Se sentir distant",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "m",
+    "contentFile": "distant.md"
+  },
+  {
+    "id": "emprisonne",
+    "name": "Se sentir emprisonné",
+    "family": "tristesse",
+    "valence": "negative",
+    "type": "pseudo",
+    "gender": "m",
+    "contentFile": "emprisonne.md"
+  }
+]

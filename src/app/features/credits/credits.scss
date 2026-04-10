@@ -1,0 +1,88 @@
+:host.credits-host {
+  display: block;
+  min-height: 100dvh;
+}
+
+.credits {
+  min-height: 100dvh;
+  background-color: var(--bg-warm);
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.5rem 3rem;
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+/* ── Navigation retour ──────────────────────────────────────── */
+.credits__nav {
+  padding-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.credits__retour {
+  font-size: 14px;
+  color: var(--text);
+  opacity: 0.6;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--text);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* ── Contenu ────────────────────────────────────────────────── */
+.credits__content {
+  flex: 1;
+}
+
+.credits__titre {
+  font-size: clamp(32px, 6vw, 48px);
+  color: var(--text);
+  margin-bottom: 2.5rem;
+}
+
+/* ── Sections ───────────────────────────────────────────────── */
+.credits__section {
+  margin-bottom: 2rem;
+}
+
+.credits__section-titre {
+  font-size: clamp(17px, 3vw, 20px);
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+
+.credits__section p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text);
+  opacity: 0.8;
+  margin: 0 0 0.75rem;
+}
+
+/* ── Liens ──────────────────────────────────────────────────── */
+.credits__lien {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 0.65;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--text);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}

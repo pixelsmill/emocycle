@@ -1,0 +1,163 @@
+:host.cycle-host {
+  display: block;
+  min-height: 100dvh;
+}
+
+.cycle {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  color: var(--text-on-dark);
+  overflow: hidden;
+  position: relative;
+  user-select: none; /* évite la sélection de texte lors du swipe */
+}
+
+/* ── Nom de l'émotion ───────────────────────────────────────── */
+.cycle__header {
+  padding: 2.5rem 1.5rem 0;
+  flex-shrink: 0;
+}
+
+.cycle__emotion-nom {
+  font-size: clamp(28px, 6vw, 42px);
+  font-weight: 700;
+  opacity: 0.7;
+  margin: 0;
+  text-align: center;
+}
+
+/* ── Rail de slides ─────────────────────────────────────────── */
+.cycle__rail-wrap {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.cycle__rail {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.28s ease;
+  will-change: transform;
+}
+
+.cycle__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 2rem 1rem;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+/* Nom de l'étape : 14px uppercase letter-spacing 0.1em opacity 0.55 (UX-DR8) */
+.cycle__step-name {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.55;
+  margin: 0;
+}
+
+/* Question : 24px (FR9) */
+.cycle__question {
+  font-size: clamp(20px, 4vw, 24px);
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0;
+  max-width: 520px;
+}
+
+/* Guide : 16px italique max-width 380px centré (FR11) */
+.cycle__guide {
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.65;
+  opacity: 0.8;
+  margin: 0;
+  max-width: 380px;
+}
+
+/* ── Pagination (puces) ─────────────────────────────────────── */
+.cycle__pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 1rem 0;
+  flex-shrink: 0;
+}
+
+.cycle__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--transition), transform var(--transition);
+
+  /* Taille tactile agrandie via padding invisible */
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -10px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 4px;
+  }
+}
+
+.cycle__dot--active {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.2);
+}
+
+/* ── Boutons de navigation ──────────────────────────────────── */
+.cycle__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem 2rem;
+  flex-shrink: 0;
+  gap: 1rem;
+}
+
+.cycle__btn {
+  min-height: 44px;
+  padding: 0.6rem 1.4rem;
+
+  font-family: 'Lora', Georgia, serif;
+  font-size: 16px;
+  color: var(--text-on-dark);
+
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius);
+  cursor: pointer;
+
+  transition: background var(--transition);
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(255, 255, 255, 0.22);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 3px;
+  }
+}
+
+.cycle__btn--next {
+  margin-left: auto;
+}

@@ -1,0 +1,84 @@
+<div
+  class="cycle"
+  role="main"
+  [attr.aria-label]="'Cycle émotionnel — ' + (emotion()?.name ?? '')"
+  (touchstart)="onTouchStart($event)"
+  (touchend)="onTouchEnd($event)"
+>
+
+  <!-- Nom de l'émotion en haut -->
+  @if (emotion(); as e) {
+    <header class="cycle__header">
+      <p class="cycle__emotion-nom">{{ e.name }}</p>
+    </header>
+  }
+
+  <!-- Diaporama : rail de slides -->
+  <div class="cycle__rail-wrap" aria-live="polite">
+    <div
+      class="cycle__rail"
+      [style.transform]="slideTransform()"
+    >
+      @for (step of steps(); track step.name; let i = $index) {
+        <div
+          class="cycle__slide"
+          role="region"
+          [attr.aria-label]="step.name"
+          [attr.aria-hidden]="i !== currentIndex()"
+        >
+          <!-- Nom de l'étape -->
+          <p class="cycle__step-name">{{ step.name }}</p>
+
+          <!-- Question principale -->
+          <p class="cycle__question">{{ step.question }}</p>
+
+          <!-- Guide -->
+          <p class="cycle__guide">{{ step.guide }}</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Pagination : 5 puces -->
+  <nav class="cycle__pagination" aria-label="Étapes du cycle">
+    @for (step of steps(); track step.name; let i = $index) {
+      <button
+        class="cycle__dot"
+        [class.cycle__dot--active]="i === currentIndex()"
+        [attr.aria-label]="'Étape ' + (i + 1) + ' : ' + step.name"
+        [attr.aria-current]="i === currentIndex() ? 'step' : null"
+        (click)="currentIndex.set(i)"
+      ></button>
+    }
+  </nav>
+
+  <!-- Boutons de navigation -->
+  <div class="cycle__nav" role="navigation" aria-label="Navigation du cycle">
+    <!-- Bouton précédent / retour fiche -->
+    <button
+      class="cycle__btn cycle__btn--prev"
+      [attr.aria-label]="isFirst() ? 'Retour à la fiche' : 'Étape précédente'"
+      (click)="goPrev()"
+    >
+      @if (isFirst()) {
+        ← Fiche
+      } @else {
+        ←
+      }
+    </button>
+
+    <!-- Bouton suivant / terminer -->
+    <button
+      class="cycle__btn cycle__btn--next"
+      [attr.aria-label]="isLast() ? 'Terminer le cycle' : 'Étape suivante'"
+      (click)="goNext()"
+    >
+      @if (isLast()) {
+        Terminer
+      } @else {
+        →
+      }
+    </button>
+  </div>
+
+</div>

@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Émocycle — Direction UX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        /* --- Neutres --- */
+        --text: #444444;
+        --text-light: #777777;
+        --text-on-dark: #ffffff;
+        --text-on-dark-muted: rgba(255, 255, 255, 0.55);
+        --text-on-dark-soft: rgba(255, 255, 255, 0.8);
+        --bg-warm: #faf8f5;
+
+        /* --- Familles émotionnelles : palette (accueil, ronds) --- */
+        --color-joie: hsl(45, 70%, 58%);
+        --color-amour: hsl(335, 55%, 58%);
+        --color-desir: hsl(20, 65%, 58%);
+        --color-tristesse: hsl(220, 50%, 55%);
+        --color-colere: hsl(0, 55%, 55%);
+        --color-peur: hsl(270, 45%, 55%);
+
+        /* --- Familles émotionnelles : fond sombre (écrans intérieurs) --- */
+        --color-joie-dark: hsl(45, 55%, 38%);
+        --color-amour-dark: hsl(335, 42%, 38%);
+        --color-desir-dark: hsl(20, 50%, 38%);
+        --color-tristesse-dark: hsl(220, 42%, 38%);
+        --color-colere-dark: hsl(0, 45%, 38%);
+        --color-peur-dark: hsl(270, 38%, 38%);
+
+        /* --- UI --- */
+        --radius: 12px;
+        --transition: 0.3s ease;
+        --btn-bg: rgba(255, 255, 255, 0.15);
+        --btn-bg-hover: rgba(255, 255, 255, 0.25);
+        --dot-bg: rgba(255, 255, 255, 0.25);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Lora', Georgia, serif;
+        color: var(--text);
+        background: var(--bg-warm);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ---- NAV PROTOTYPE ---- */
+      .proto-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(250, 248, 245, 0.95);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(68, 68, 68, 0.1);
+        padding: 12px 24px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .proto-nav span {
+        font-size: 13px;
+        color: var(--text-light);
+        margin-right: 8px;
+      }
+
+      .proto-nav button {
+        font-family: 'Lora', serif;
+        font-size: 13px;
+        padding: 6px 14px;
+        border: 1px solid rgba(68, 68, 68, 0.2);
+        border-radius: 20px;
+        background: var(--text-on-dark);
+        color: var(--text);
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .proto-nav button:hover,
+      .proto-nav button.active {
+        background: var(--text);
+        color: var(--text-on-dark);
+        border-color: var(--text);
+      }
+
+      /* ---- ÉCRANS ---- */
+      .screen {
+        display: none;
+        min-height: 100vh;
+        padding-top: 72px;
+      }
+
+      .screen.visible {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .screen-inner {
+        width: 100%;
+        max-width: 480px;
+        padding: 32px 24px;
+        margin: 0 auto;
+      }
+
+      /* ---- DARK SCREEN BASE (tout sauf accueil) ---- */
+      .screen-dark {
+        color: var(--text-on-dark);
+      }
+
+      .screen-dark .liste-header,
+      .screen-dark .fiche-section-label {
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .screen-dark .liste-mot,
+      .screen-dark .fiche-titre,
+      .screen-dark .fiche-texte,
+      .screen-dark .fiche-exemples,
+      .screen-dark .cycle-question,
+      .screen-dark .sortie-message,
+      .screen-dark .sortie-reponse {
+        color: var(--text-on-dark);
+      }
+
+      .screen-dark .cycle-etape-nom {
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .screen-dark .cycle-guide {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .screen-dark .liste-mot {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .screen-dark .liste-mot:hover {
+        color: var(--text-on-dark);
+        opacity: 0.85;
+      }
+
+      .screen-dark .btn-cycle,
+      .screen-dark .btn-nav {
+        color: var(--text-on-dark);
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .screen-dark .btn-cycle:hover,
+      .screen-dark .btn-nav:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      .screen-dark .cycle-dot {
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      .screen-dark .cycle-dot.active {
+        background: var(--text-on-dark);
+      }
+
+      .screen-dark .btn-merci {
+        color: var(--text-on-dark);
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .screen-dark .btn-merci:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      .screen-dark .btn-pas {
+        color: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: transparent;
+      }
+
+      .screen-dark .btn-pas:hover {
+        color: var(--text-on-dark);
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+
+      .screen-dark .sortie-filet {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .screen-dark .sortie-filet a {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* ---- SCREEN 1 : ACCUEIL ---- */
+      .screen-accueil {
+        background: var(--bg-warm);
+        text-align: center;
+      }
+
+      .accueil-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 0 24px;
+      }
+
+      .titre-hero {
+        font-size: clamp(72px, 15vw, 140px);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 0.85;
+      }
+
+      .titre-app {
+        color: var(--text);
+      }
+
+      .promesse-line {
+        display: flex;
+        align-items: baseline;
+        gap: 90px;
+        margin-top: -2px;
+        padding-left: 40px;
+      }
+
+      .promesse-line span {
+        font-size: clamp(16px, 2.5vw, 20px);
+        line-height: 1.6;
+        color: var(--text);
+      }
+
+      .palette-circles {
+        display: flex;
+        gap: 16px;
+        margin-top: 48px;
+        justify-content: center;
+      }
+
+      .palette-circle {
+        width: clamp(44px, 10vw, 64px);
+        height: clamp(44px, 10vw, 64px);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        border: none;
+        outline: none;
+        padding: 0;
+      }
+
+      .palette-circle:hover {
+        transform: scale(1.12);
+      }
+
+      .palette-circle:active {
+        transform: scale(0.95);
+      }
+
+      .palette-circle[data-color='joie'] {
+        background: var(--color-joie);
+      }
+      .palette-circle[data-color='amour'] {
+        background: var(--color-amour);
+      }
+      .palette-circle[data-color='desir'] {
+        background: var(--color-desir);
+      }
+      .palette-circle[data-color='tristesse'] {
+        background: var(--color-tristesse);
+      }
+      .palette-circle[data-color='colere'] {
+        background: var(--color-colere);
+      }
+      .palette-circle[data-color='peur'] {
+        background: var(--color-peur);
+      }
+
+      .palette-item-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+
+      .palette-label {
+        font-size: 12px;
+        color: var(--text-light);
+      }
+
+      /* ---- SCREEN 2 : LISTE ÉMOTIONS ---- */
+      .screen-liste {
+        min-height: 100vh;
+      }
+
+      .screen-liste .screen-inner {
+        padding-top: 48px;
+        padding-bottom: 48px;
+      }
+
+      .liste-mot {
+        font-size: 24px;
+        line-height: 1.4;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(68, 68, 68, 0.08);
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+      }
+
+      .liste-mot:last-child {
+        border-bottom: none;
+      }
+
+      .liste-header {
+        font-size: 14px;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-align: center;
+      }
+
+      .liste-titre-hero {
+        text-align: center;
+        margin-bottom: 0;
+        opacity: 0.7;
+      }
+
+      .liste-consigne {
+        font-size: clamp(16px, 2.5vw, 20px);
+        line-height: 1.6;
+        color: var(--text-on-dark);
+        text-align: center;
+        margin-top: -2px;
+        margin-bottom: 48px;
+        opacity: 0.7;
+      }
+
+      .cycle-titre-hero {
+        margin-bottom: 0;
+        opacity: 0.7;
+      }
+
+      .screen-cycle .liste-consigne {
+        margin-top: -2px;
+        margin-bottom: 32px;
+      }
+
+      /* ---- SCREEN 3 : FICHE ÉMOTION ---- */
+      .screen-fiche .screen-inner {
+        padding-top: 64px;
+        padding-bottom: 120px; /* espace pour le btn fixed */
+      }
+
+      .fiche-titre {
+        margin-bottom: 32px;
+        text-align: center;
+        width: 100%;
+        opacity: 0.7;
+      }
+
+      .fiche-section-label {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 12px;
+        margin-top: 32px;
+      }
+
+      .fiche-section-label:first-of-type {
+        margin-top: 0;
+      }
+
+      .fiche-texte {
+        font-size: 17px;
+        line-height: 1.75;
+        text-indent: 1.5em;
+      }
+
+      .fiche-texte + .fiche-texte {
+        margin-top: 8px;
+      }
+
+      .fiche-exemples {
+        font-size: 16px;
+        line-height: 1.7;
+        font-style: italic;
+        margin-top: 8px;
+      }
+
+      /* Bouton cycle — fixed en bas */
+      .btn-cycle-wrapper {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 16px 24px;
+        padding-bottom: max(16px, env(safe-area-inset-bottom));
+        z-index: 50;
+        display: none;
+      }
+
+      .screen-fiche.visible ~ .btn-cycle-wrapper,
+      .btn-cycle-wrapper.visible {
+        display: block;
+      }
+
+      .btn-cycle {
+        display: block;
+        width: 100%;
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 18px 24px;
+        font-family: 'Lora', serif;
+        font-size: 17px;
+        line-height: 1.4;
+        color: var(--text-on-dark);
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+      }
+
+      .btn-cycle:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      /* ---- SCREEN 4 : CYCLE ---- */
+      .screen-cycle {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cycle-container {
+        width: 100%;
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 0 24px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: calc(100vh - 72px);
+      }
+
+      .cycle-etape-nom {
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 32px;
+      }
+
+      .cycle-question {
+        font-size: 24px;
+        line-height: 1.5;
+        margin-bottom: 32px;
+      }
+
+      .cycle-guide {
+        font-size: 16px;
+        line-height: 1.7;
+        font-style: italic;
+        max-width: 380px;
+        margin: 0 auto;
+      }
+
+      .cycle-dots {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 48px;
+      }
+
+      .cycle-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+
+      .cycle-nav {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        margin-top: 32px;
+      }
+
+      .btn-nav {
+        font-family: 'Lora', serif;
+        font-size: 15px;
+        padding: 12px 28px;
+        border: none;
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: var(--transition);
+        min-width: 44px;
+        min-height: 44px;
+      }
+
+      /* ---- SCREEN 5 : SORTIE ---- */
+      .screen-sortie {
+        text-align: center;
+      }
+
+      .sortie-message {
+        font-size: 20px;
+        line-height: 1.7;
+        margin-bottom: 48px;
+      }
+
+      .sortie-btns {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn-sortie {
+        font-family: 'Lora', serif;
+        font-size: 17px;
+        padding: 16px 32px;
+        border: none;
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: var(--transition);
+        min-width: 44px;
+        min-height: 44px;
+      }
+
+      .sortie-filet {
+        margin-top: 64px;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .sortie-filet a {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .sortie-reponse {
+        font-size: 18px;
+        line-height: 1.7;
+        margin-bottom: 48px;
+        font-style: italic;
+      }
+
+      /* ---- COULEURS DE FOND PAR FAMILLE ---- */
+      .bg-colere {
+        background: var(--color-colere-dark);
+      }
+      .bg-tristesse {
+        background: var(--color-tristesse-dark);
+      }
+
+      /* ---- ANIMATIONS ---- */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .fade-in {
+        animation: fadeIn 2s ease;
+      }
+
+      /* ---- RESPONSIVE DESKTOP ---- */
+      @media (min-width: 768px) {
+        .screen-inner {
+          max-width: 640px;
+        }
+
+        .cycle-container {
+          max-width: 640px;
+        }
+
+        .btn-cycle {
+          max-width: 640px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation prototype -->
+    <nav class="proto-nav">
+      <span>Écrans :</span>
+      <button class="active" onclick="show('accueil')">Accueil</button>
+      <button onclick="show('liste')">Liste (colère)</button>
+      <button onclick="show('liste-tristesse')">Liste (tristesse)</button>
+      <button onclick="show('fiche')">Fiche</button>
+      <button onclick="show('cycle-1')">Cycle — Émergence</button>
+      <button onclick="show('cycle-3')">Cycle — Reconnaissance</button>
+      <button onclick="show('sortie')">Sortie</button>
+      <button onclick="show('sortie-pas')">Sortie [Pas vraiment]</button>
+    </nav>
+
+    <!-- ÉCRAN 1 : ACCUEIL -->
+    <section id="accueil" class="screen screen-accueil visible">
+      <div class="accueil-content fade-in">
+        <h1 class="titre-hero titre-app">Émocycle</h1>
+        <div class="promesse-line">
+          <span>L'émotion que vous vivez</span>
+          <span>a un message</span>
+        </div>
+        <div class="palette-circles">
+          <div class="palette-item-wrap" onclick="show('liste')">
+            <div class="palette-circle" data-color="joie"></div>
+            <span class="palette-label">Joies</span>
+          </div>
+          <div class="palette-item-wrap">
+            <div class="palette-circle" data-color="amour"></div>
+            <span class="palette-label">Amours</span>
+          </div>
+          <div class="palette-item-wrap">
+            <div class="palette-circle" data-color="desir"></div>
+            <span class="palette-label">Désirs</span>
+          </div>
+          <div class="palette-item-wrap" onclick="show('liste-tristesse')">
+            <div class="palette-circle" data-color="tristesse"></div>
+            <span class="palette-label">Tristesses</span>
+          </div>
+          <div class="palette-item-wrap" onclick="show('liste')">
+            <div class="palette-circle" data-color="colere"></div>
+            <span class="palette-label">Colères</span>
+          </div>
+          <div class="palette-item-wrap">
+            <div class="palette-circle" data-color="peur"></div>
+            <span class="palette-label">Peurs</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÉCRAN 2 : LISTE — COLÈRE -->
+    <section id="liste" class="screen screen-dark screen-liste bg-colere">
+      <div class="screen-inner">
+        <div class="titre-hero liste-titre-hero">Colères</div>
+        <p class="liste-consigne">En est-il une qui correspond ?</p>
+        <div class="liste-mot">Colère</div>
+        <div class="liste-mot" onclick="show('fiche')">Ressentiment</div>
+        <div class="liste-mot">Rage</div>
+        <div class="liste-mot">Frustration</div>
+        <div class="liste-mot">Impatience</div>
+        <div class="liste-mot">Hostilité</div>
+        <div class="liste-mot">Haine</div>
+        <div class="liste-mot">Dégoût</div>
+        <div class="liste-mot">Révolte</div>
+        <div class="liste-mot">Rancune</div>
+        <div class="liste-mot">Mépris</div>
+        <div class="liste-mot">Amertume</div>
+      </div>
+    </section>
+
+    <!-- ÉCRAN 2b : LISTE — TRISTESSE -->
+    <section id="liste-tristesse" class="screen screen-dark screen-liste bg-tristesse">
+      <div class="screen-inner">
+        <div class="titre-hero liste-titre-hero">Tristesses</div>
+        <p class="liste-consigne">En est-il une qui correspond ?</p>
+        <div class="liste-mot">Tristesse</div>
+        <div class="liste-mot">Nostalgie</div>
+        <div class="liste-mot">Solitude</div>
+        <div class="liste-mot">Ennui</div>
+        <div class="liste-mot">Découragement</div>
+        <div class="liste-mot">Abandon</div>
+        <div class="liste-mot">Déception</div>
+        <div class="liste-mot">Vide</div>
+        <div class="liste-mot">Déprime</div>
+        <div class="liste-mot">Désespoir</div>
+      </div>
+    </section>
+
+    <!-- ÉCRAN 3 : FICHE ÉMOTION -->
+    <section id="fiche" class="screen screen-dark screen-fiche bg-colere">
+      <h1 class="titre-hero fiche-titre">Ressentiment</h1>
+      <div class="screen-inner">
+        <div class="fiche-section-label">Définition</div>
+        <p class="fiche-texte">
+          Le ressentiment est une forme de colère retenue, dirigée vers une personne ou une
+          situation perçue comme injuste. Il naît quand on estime avoir été traité de façon
+          inéquitable, sans avoir pu exprimer cette insatisfaction.
+        </p>
+        <p class="fiche-texte">
+          Contrairement à la colère franche qui pousse à agir, le ressentiment s'installe. Il est le
+          signe qu'un besoin de reconnaissance ou de justice n'a pas été entendu.
+        </p>
+
+        <div class="fiche-section-label">Exemples</div>
+        <p class="fiche-exemples">
+          « Un collègue s'attribue le mérite de votre travail lors d'une réunion. Vous ne dites rien
+          sur le moment, mais l'irritation reste, revient le soir, et colore votre perception de
+          cette personne pendant des semaines. »
+        </p>
+
+        <div class="fiche-section-label">À quoi ça sert</div>
+        <p class="fiche-texte">
+          Le ressentiment signale un besoin de respect ou d'équité. Il invite à poser ses limites et
+          à exprimer ce qui a été vécu comme injuste — avant que l'accumulation ne transforme
+          l'irritation en rupture.
+        </p>
+      </div>
+    </section>
+
+    <!-- Bouton cycle — fixed en bas, visible sur la fiche -->
+    <div id="btn-cycle-wrapper" class="btn-cycle-wrapper">
+      <button class="btn-cycle" onclick="show('cycle-1')">
+        Votre ressentiment a quelque chose à vous dire
+      </button>
+    </div>
+
+    <!-- ÉCRAN 4a : CYCLE — ÉMERGENCE -->
+    <section id="cycle-1" class="screen screen-dark screen-cycle bg-colere">
+      <div class="cycle-container">
+        <div class="titre-hero cycle-titre-hero">Ressentiment</div>
+        <p class="liste-consigne">Le ressentiment est là. Laissez-le prendre sa place.</p>
+        <div class="cycle-etape-nom">Étape 1 — Émergence</div>
+        <p class="cycle-guide">
+          Ne cherchez pas à la comprendre tout de suite. Acceptez simplement qu'elle existe, en ce
+          moment, en vous. C'est le premier pas.
+        </p>
+        <div class="cycle-dots">
+          <div class="cycle-dot active"></div>
+          <div class="cycle-dot"></div>
+          <div class="cycle-dot"></div>
+          <div class="cycle-dot"></div>
+          <div class="cycle-dot"></div>
+        </div>
+        <div class="cycle-nav">
+          <button class="btn-nav" onclick="show('fiche')">← Fiche</button>
+          <button class="btn-nav" onclick="show('cycle-3')">Suivant →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÉCRAN 4c : CYCLE — RECONNAISSANCE -->
+    <section id="cycle-3" class="screen screen-dark screen-cycle bg-colere">
+      <div class="cycle-container">
+        <div class="titre-hero cycle-titre-hero">Ressentiment</div>
+        <p class="liste-consigne">Et si ce ressentiment était lié à un besoin qui vous appelle ?</p>
+        <div class="cycle-etape-nom">Étape 3 — Reconnaissance</div>
+        <p class="cycle-guide">
+          Derrière cette émotion, il y a souvent quelque chose d'important pour vous — un besoin de
+          respect, de justice, de reconnaissance. Qu'est-ce qui vous manque vraiment dans cette
+          situation ?
+        </p>
+        <div class="cycle-dots">
+          <div class="cycle-dot"></div>
+          <div class="cycle-dot"></div>
+          <div class="cycle-dot active"></div>
+          <div class="cycle-dot"></div>
+          <div class="cycle-dot"></div>
+        </div>
+        <div class="cycle-nav">
+          <button class="btn-nav">← Précédent</button>
+          <button class="btn-nav" onclick="show('sortie')">Suivant →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÉCRAN 5 : SORTIE -->
+    <section id="sortie" class="screen screen-dark screen-sortie bg-colere">
+      <div class="titre-hero cycle-titre-hero">Ressentiment</div>
+      <div class="screen-inner">
+        <p class="sortie-message">
+          Nous espérons que cette expérience<br />
+          va vous aider à avancer.<br /><br />
+          Prenez soin de vous.<br />
+          Revenez quand vous voulez.
+        </p>
+        <div class="sortie-btns">
+          <button class="btn-sortie btn-merci">Merci</button>
+          <button class="btn-sortie btn-pas" onclick="show('sortie-pas')">Pas vraiment</button>
+        </div>
+        <div class="sortie-filet">
+          Si vous traversez un moment difficile,<br />
+          vous pouvez appeler le <a href="#">3114</a> (numéro national de prévention du suicide)<br />
+          ou <a href="#">SOS Amitié : 09 72 39 40 50</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÉCRAN 5b : SORTIE PAS VRAIMENT -->
+    <section id="sortie-pas" class="screen screen-dark screen-sortie bg-colere">
+      <div class="titre-hero cycle-titre-hero">Ressentiment</div>
+      <div class="screen-inner">
+        <p class="sortie-reponse">
+          Ce n'est pas grave.<br />
+          Vous avez eu le courage d'essayer,<br />
+          et c'est déjà beaucoup.
+        </p>
+        <p class="sortie-message">
+          Prenez soin de vous.<br />
+          Revenez quand vous voulez.
+        </p>
+        <div class="sortie-btns">
+          <button class="btn-sortie btn-merci" onclick="show('accueil')">Recommencer</button>
+        </div>
+        <div class="sortie-filet">
+          Si vous traversez un moment difficile,<br />
+          vous pouvez appeler le <a href="#">3114</a> (numéro national de prévention du suicide)<br />
+          ou <a href="#">SOS Amitié : 09 72 39 40 50</a>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const btnCycleWrapper = document.getElementById('btn-cycle-wrapper');
+
+      function show(id) {
+        document.querySelectorAll('.screen').forEach((s) => s.classList.remove('visible'));
+        document.getElementById(id).classList.add('visible');
+        document.querySelectorAll('.proto-nav button').forEach((b) => b.classList.remove('active'));
+        document.querySelectorAll('.proto-nav button').forEach((b) => {
+          if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) {
+            b.classList.add('active');
+          }
+        });
+        // Afficher le bouton cycle uniquement sur la fiche
+        btnCycleWrapper.style.display = id === 'fiche' ? 'block' : 'none';
+        window.scrollTo(0, 0);
+      }
+    </script>
+  </body>
+</html>

@@ -2,7 +2,16 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "Bash(npx bmad-method:*)"
+      "Bash(npx bmad-method:*)",
+      "Bash(grep -E \"\\\\.\\(md|html\\)$\")",
+      "Bash(grep -h \"^\\\\*\\\\*Type\" documents/redpsy/guide-md/*.md)",
+      "Bash(npm install:*)",
+      "Bash(npx ng:*)",
+      "Bash(npx tsx:*)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); simple=[e for e in d if e['type']=='simple']; print\\('Total:', len\\(d\\)\\); print\\('Simple:', len\\(simple\\)\\); print\\('Familles simple:', {e['family'] for e in simple}\\); [print\\(f\\\\\"  {e['id']}: {e['family']}/{e['valence']}/{e['gender']}\\\\\"\\) for e in simple]\")",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('public/data/emotions.json','utf8'\\)\\); const s=d.filter\\(e=>e.type==='simple'\\); console.log\\('Total:',d.length,'Simple:',s.length\\); s.forEach\\(e=>console.log\\(' ',e.id,e.family,e.valence,e.gender\\)\\)\")",
+      "Bash(xargs grep:*)",
+      "Bash(node -e \"const m=require\\('marked'\\); console.log\\(typeof m.marked, typeof m.parse, Object.keys\\(m\\).slice\\(0,8\\)\\)\")"
     ]
   }
 }

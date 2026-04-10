@@ -1,1 +1,104 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================================================
+   ÉMOCYCLE — Design System Global
+   Tokens CSS, typographie Lora, classes de theming
+   ============================================================ */
+
+/* ── Tokens CSS custom properties ───────────────────────────── */
+:root {
+  /* Famille Joie */
+  --color-joie:        hsl(45, 95%, 58%);
+  --color-joie-dark:   hsl(40, 70%, 22%);
+
+  /* Famille Amour */
+  --color-amour:       hsl(340, 80%, 65%);
+  --color-amour-dark:  hsl(340, 60%, 20%);
+
+  /* Famille Désir */
+  --color-desir:       hsl(25, 90%, 58%);
+  --color-desir-dark:  hsl(20, 65%, 20%);
+
+  /* Famille Tristesse */
+  --color-tristesse:       hsl(210, 55%, 55%);
+  --color-tristesse-dark:  hsl(215, 50%, 18%);
+
+  /* Famille Colère */
+  --color-colere:       hsl(4, 80%, 55%);
+  --color-colere-dark:  hsl(4, 60%, 18%);
+
+  /* Famille Peur */
+  --color-peur:       hsl(270, 50%, 55%);
+  --color-peur-dark:  hsl(270, 45%, 18%);
+
+  /* Neutres & UI */
+  --text:              hsl(220, 15%, 15%);
+  --text-on-dark:      hsl(0, 0%, 100%);
+  --bg-warm:           hsl(40, 30%, 96%);
+  --radius:            12px;
+  --transition:        0.28s ease;
+  --btn-bg:            rgba(255, 255, 255, 0.18);
+}
+
+/* ── Typographie Lora ────────────────────────────────────────── */
+body {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text);
+  background-color: var(--bg-warm);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(72px, 15vw, 140px);
+  line-height: 1.05;
+  margin: 0;
+}
+
+h2 {
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(28px, 5vw, 48px);
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* ── Classes de theming dynamique (appliquées sur <body>) ───── */
+body.bg-joie      { background-color: var(--color-joie-dark); }
+body.bg-amour     { background-color: var(--color-amour-dark); }
+body.bg-desir     { background-color: var(--color-desir-dark); }
+body.bg-tristesse { background-color: var(--color-tristesse-dark); }
+body.bg-colere    { background-color: var(--color-colere-dark); }
+body.bg-peur      { background-color: var(--color-peur-dark); }
+
+/* ── Utilitaires ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Focus visible pour accessibilité clavier */
+:focus-visible {
+  outline: 3px solid var(--text-on-dark);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Texte en défonce blanche sur fonds sombres */
+.text-on-dark {
+  color: var(--text-on-dark);
+}
+
+/* Animation fadeIn accueil (UX-DR3) */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 2s ease both;
+}
