@@ -1,16 +1,16 @@
 :host.cycle-host {
   display: block;
-  min-height: 100dvh;
+  height: 100dvh;
 }
 
 .cycle {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
-  color: var(--text-on-dark);
+  height: 100dvh;
+  color: var(--text);
   overflow: hidden;
   position: relative;
-  user-select: none; /* évite la sélection de texte lors du swipe */
+  user-select: none;
 }
 
 /* ── Nom de l'émotion ───────────────────────────────────────── */
@@ -54,7 +54,7 @@
   gap: 1.5rem;
 }
 
-/* Nom de l'étape : 14px uppercase letter-spacing 0.1em opacity 0.55 (UX-DR8) */
+/* Nom de l'étape */
 .cycle__step-name {
   font-size: 14px;
   font-weight: 400;
@@ -64,7 +64,7 @@
   margin: 0;
 }
 
-/* Question : 24px (FR9) */
+/* Question */
 .cycle__question {
   font-size: clamp(20px, 4vw, 24px);
   font-weight: 700;
@@ -73,12 +73,12 @@
   max-width: 520px;
 }
 
-/* Guide : 16px italique max-width 380px centré (FR11) */
+/* Guide */
 .cycle__guide {
   font-size: 16px;
   font-style: italic;
   line-height: 1.65;
-  opacity: 0.8;
+  opacity: 0.7;
   margin: 0;
   max-width: 380px;
 }
@@ -97,12 +97,11 @@
   height: 8px;
   border-radius: 50%;
   border: none;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.2);
   cursor: pointer;
   padding: 0;
   transition: background var(--transition), transform var(--transition);
 
-  /* Taille tactile agrandie via padding invisible */
   position: relative;
 
   &::after {
@@ -112,13 +111,13 @@
   }
 
   &:focus-visible {
-    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline: 2px solid rgba(0, 0, 0, 0.4);
     outline-offset: 4px;
   }
 }
 
 .cycle__dot--active {
-  background: rgba(255, 255, 255, 1);
+  background: rgba(0, 0, 0, 0.65);
   transform: scale(1.2);
 }
 
@@ -138,10 +137,10 @@
 
   font-family: 'Lora', Georgia, serif;
   font-size: 16px;
-  color: var(--text-on-dark);
+  color: var(--text);
 
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: var(--radius);
   cursor: pointer;
 
@@ -149,11 +148,11 @@
 
   &:hover,
   &:focus-visible {
-    background: rgba(255, 255, 255, 0.22);
+    background: rgba(0, 0, 0, 0.12);
   }
 
   &:focus-visible {
-    outline: 3px solid rgba(255, 255, 255, 0.8);
+    outline: 3px solid rgba(0, 0, 0, 0.4);
     outline-offset: 3px;
   }
 }

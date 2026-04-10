@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  color: var(--text-on-dark);
+  color: var(--text);
 }
 
 /* ── Header ──────────────────────────────────────────────────── */
@@ -22,7 +22,7 @@
 .liste__titre {
   font-size: clamp(48px, 10vw, 80px);
   font-weight: 700;
-  color: var(--text-on-dark);
+  color: var(--text);
   opacity: 0.85;
   line-height: 1;
   margin: 0;
@@ -52,42 +52,42 @@
   width: 100%;
   background: none;
   border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   cursor: pointer;
   padding: 0.75rem 1rem;
 
   font-family: 'Lora', Georgia, serif;
   font-size: 24px;
   font-weight: 400;
-  color: var(--text-on-dark);
+  color: var(--text);
   text-align: center;
   min-height: 44px;
 
-  transition: background-color var(--transition), opacity var(--transition);
+  transition: background-color var(--transition);
 
   &:hover,
   &:focus-visible {
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(0, 0, 0, 0.06);
   }
 
   &:focus-visible {
-    outline: 3px solid rgba(255, 255, 255, 0.8);
+    outline: 3px solid rgba(0, 0, 0, 0.4);
     outline-offset: -3px;
   }
 
   &:first-child {
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
 }
 
 .liste__vide {
-  color: var(--text-on-dark);
+  color: var(--text);
   opacity: 0.6;
   font-style: italic;
   margin-top: 2rem;
 }
 
-/* ── Nav bas — même style que cycle__nav ─────────────────────── */
+/* ── Nav bas ─────────────────────────────────────────────────── */
 .liste__nav-bas {
   display: flex;
   justify-content: space-between;
@@ -102,10 +102,10 @@
 
   font-family: 'Lora', Georgia, serif;
   font-size: 16px;
-  color: var(--text-on-dark);
+  color: var(--text);
 
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: var(--radius);
   cursor: pointer;
 
@@ -113,11 +113,11 @@
 
   &:hover,
   &:focus-visible {
-    background: rgba(255, 255, 255, 0.22);
+    background: rgba(0, 0, 0, 0.12);
   }
 
   &:focus-visible {
-    outline: 3px solid rgba(255, 255, 255, 0.8);
+    outline: 3px solid rgba(0, 0, 0, 0.4);
     outline-offset: 3px;
   }
 }

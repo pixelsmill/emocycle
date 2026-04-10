@@ -67,12 +67,12 @@ h2 {
 }
 
 /* ── Classes de theming dynamique (appliquées sur <body>) ───── */
-body.bg-joie      { background-color: var(--color-joie-dark); }
-body.bg-amour     { background-color: var(--color-amour-dark); }
-body.bg-desir     { background-color: var(--color-desir-dark); }
-body.bg-tristesse { background-color: var(--color-tristesse-dark); }
-body.bg-colere    { background-color: var(--color-colere-dark); }
-body.bg-peur      { background-color: var(--color-peur-dark); }
+body.bg-joie      { background-color: color-mix(in srgb, var(--color-joie) 25%, var(--bg-warm)); }
+body.bg-amour     { background-color: color-mix(in srgb, var(--color-amour) 25%, var(--bg-warm)); }
+body.bg-desir     { background-color: color-mix(in srgb, var(--color-desir) 25%, var(--bg-warm)); }
+body.bg-tristesse { background-color: color-mix(in srgb, var(--color-tristesse) 25%, var(--bg-warm)); }
+body.bg-colere    { background-color: color-mix(in srgb, var(--color-colere) 25%, var(--bg-warm)); }
+body.bg-peur      { background-color: color-mix(in srgb, var(--color-peur) 25%, var(--bg-warm)); }
 
 /* ── Utilitaires ─────────────────────────────────────────────── */
 *,

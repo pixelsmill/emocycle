@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  color: var(--text-on-dark);
+  color: var(--text);
 }
 
 /* ── Nom de l'émotion ───────────────────────────────────────── */
@@ -36,7 +36,6 @@
   text-align: center;
 }
 
-/* Message principal : 20px Lora (FR14) */
 .sortie__message {
   font-size: 20px;
   line-height: 1.65;
@@ -45,7 +44,7 @@
 
   &--humble {
     font-style: italic;
-    opacity: 0.9;
+    opacity: 0.85;
   }
 }
 
@@ -63,9 +62,9 @@
 
   font-family: 'Lora', Georgia, serif;
   font-size: 16px;
-  color: var(--text-on-dark);
+  color: var(--text);
 
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.06);
   border: none;
   border-radius: var(--radius);
   cursor: pointer;
@@ -74,18 +73,17 @@
 
   &:hover,
   &:focus-visible {
-    background: rgba(255, 255, 255, 0.22);
+    background: rgba(0, 0, 0, 0.12);
   }
 
   &:focus-visible {
-    outline: 3px solid rgba(255, 255, 255, 0.8);
+    outline: 3px solid rgba(0, 0, 0, 0.4);
     outline-offset: 3px;
   }
 
-  /* Bordure visible pour contraste sur fond sombre (UX-DR11) */
   &--pas-vraiment,
   &--recommencer {
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -98,24 +96,24 @@
 
 .sortie__filet-texte {
   font-size: 13px;
-  opacity: 0.6;
+  opacity: 0.55;
   line-height: 1.65;
   margin: 0 auto;
   max-width: 480px;
 }
 
 .sortie__filet-lien {
-  color: var(--text-on-dark);
+  color: var(--text);
   text-decoration: underline;
   text-underline-offset: 3px;
 
   &:hover,
   &:focus-visible {
-    opacity: 0.85;
+    opacity: 0.7;
   }
 
   &:focus-visible {
-    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline: 2px solid rgba(0, 0, 0, 0.4);
     outline-offset: 2px;
     border-radius: 2px;
   }
