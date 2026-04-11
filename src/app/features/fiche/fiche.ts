@@ -14,6 +14,7 @@ import { ContentService } from '../../services/content.service';
 import { EmotionService } from '../../services/emotion.service';
 import { ThemeService } from '../../services/theme.service';
 import { MarkdownPipe } from '../../pipes/markdown.pipe';
+import { TablerIconComponent } from '@tabler/icons-angular';
 
 /** Retire l'article défini français du nom de l'émotion.
  *  "La colère" → "colère", "L'amour" → "amour", "Le désir" → "désir"
@@ -27,7 +28,7 @@ export function stripArticle(name: string): string {
 @Component({
   selector: 'app-fiche',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MarkdownPipe],
+  imports: [MarkdownPipe, TablerIconComponent],
   templateUrl: './fiche.html',
   styleUrl: './fiche.scss',
   host: { class: 'fiche-host' },

@@ -1,0 +1,76 @@
+<main class="cycle-info" aria-label="Le cycle de vie des émotions">
+
+  <header class="cycle-info__header">
+    <button class="cycle-info__retour" aria-label="Retour" (click)="goBack()">←</button>
+    <h1 class="cycle-info__titre">Le cycle de vie des émotions</h1>
+    <p class="cycle-info__intro">
+      Chaque émotion porte un message. Quand on lui laisse la place de se dérouler,
+      elle livre ce message. Le cycle est là pour créer cet espace.
+    </p>
+  </header>
+
+  <ol class="cycle-info__etapes" aria-label="Les 5 étapes du cycle">
+
+    <li class="cycle-info__etape">
+      <span class="cycle-info__num" aria-hidden="true">1</span>
+      <div class="cycle-info__etape-content">
+        <h2 class="cycle-info__etape-nom">Émergence</h2>
+        <p class="cycle-info__etape-desc">
+          Reconnaître que l'émotion est là, sans l'expliquer ni la juger.
+          Lui donner de la place, c'est déjà lui permettre de parler.
+        </p>
+      </div>
+    </li>
+
+    <li class="cycle-info__etape">
+      <span class="cycle-info__num" aria-hidden="true">2</span>
+      <div class="cycle-info__etape-content">
+        <h2 class="cycle-info__etape-nom">Sensation</h2>
+        <p class="cycle-info__etape-desc">
+          Les émotions vivent dans le corps avant d'avoir des mots.
+          Tension, chaleur, serrement — observer sans interpréter.
+        </p>
+      </div>
+    </li>
+
+    <li class="cycle-info__etape">
+      <span class="cycle-info__num" aria-hidden="true">3</span>
+      <div class="cycle-info__etape-content">
+        <h2 class="cycle-info__etape-nom">Reconnaissance</h2>
+        <p class="cycle-info__etape-desc">
+          L'émotion n'est pas un problème à régler — c'est le signal d'un besoin.
+          C'est ici que le message se révèle, souvent de façon inattendue.
+        </p>
+      </div>
+    </li>
+
+    <li class="cycle-info__etape">
+      <span class="cycle-info__num" aria-hidden="true">4</span>
+      <div class="cycle-info__etape-content">
+        <h2 class="cycle-info__etape-nom">Expression</h2>
+        <p class="cycle-info__etape-desc">
+          Mettre des mots sur ce qu'on ressent et ce dont on a besoin.
+          Sans censure — même mentalement, même sans destinataire.
+        </p>
+      </div>
+    </li>
+
+    <li class="cycle-info__etape">
+      <span class="cycle-info__num" aria-hidden="true">5</span>
+      <div class="cycle-info__etape-content">
+        <h2 class="cycle-info__etape-nom">Action</h2>
+        <p class="cycle-info__etape-desc">
+          Une fois le besoin entendu, l'émotion n'a plus besoin de crier.
+          Une petite action — ou simplement la conscience de ce qui compte — suffit.
+        </p>
+      </div>
+    </li>
+
+  </ol>
+
+
+  <a class="cycle-info__cta" routerLink="/" aria-label="Retourner sur l'accueil et choisir une émotion">
+    Choisissez l'émotion que vous ressentez maintenant
+  </a>
+
+</main>

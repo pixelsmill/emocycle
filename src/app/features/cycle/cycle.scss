@@ -13,18 +13,56 @@
   user-select: none;
 }
 
-/* ── Nom de l'émotion ───────────────────────────────────────── */
+/* ── Header ─────────────────────────────────────────────────── */
 .cycle__header {
-  padding: 2.5rem 1.5rem 0;
+  padding: 2rem 1.5rem 0;
   flex-shrink: 0;
 }
 
+.cycle__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+/* Boutons icône [livre] et [?] — même style */
+.cycle__icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--transition);
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(0, 0, 0, 0.12);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(0, 0, 0, 0.4);
+    outline-offset: 3px;
+  }
+}
+
 .cycle__emotion-nom {
-  font-size: clamp(28px, 6vw, 42px);
+  font-size: clamp(16px, 4vw, 24px);
   font-weight: 700;
   opacity: 0.7;
   margin: 0;
   text-align: center;
+  line-height: 1.2;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ── Rail de slides ─────────────────────────────────────────── */
@@ -54,7 +92,6 @@
   gap: 1.5rem;
 }
 
-/* Nom de l'étape */
 .cycle__step-name {
   font-size: 14px;
   font-weight: 400;
@@ -64,7 +101,6 @@
   margin: 0;
 }
 
-/* Question */
 .cycle__question {
   font-size: clamp(20px, 4vw, 24px);
   font-weight: 700;
@@ -73,7 +109,6 @@
   max-width: 520px;
 }
 
-/* Guide */
 .cycle__guide {
   font-size: 16px;
   font-style: italic;
@@ -101,7 +136,6 @@
   cursor: pointer;
   padding: 0;
   transition: background var(--transition), transform var(--transition);
-
   position: relative;
 
   &::after {
@@ -134,16 +168,13 @@
 .cycle__btn {
   min-height: 44px;
   padding: 0.6rem 1.4rem;
-
   font-family: 'Lora', Georgia, serif;
   font-size: 16px;
   color: var(--text);
-
   background: rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: var(--radius);
   cursor: pointer;
-
   transition: background var(--transition);
 
   &:hover,
@@ -159,4 +190,249 @@
 
 .cycle__btn--next {
   margin-left: auto;
+}
+
+/* ── Modales ────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: stretch;
+  z-index: 100;
+}
+
+.modal-panel {
+  position: fixed;
+  inset: 20px;
+  background: var(--bg-warm);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--text);
+}
+
+/* Bouton fermeture */
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: background var(--transition);
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(0, 0, 0, 0.12);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(0, 0, 0, 0.4);
+    outline-offset: 3px;
+  }
+}
+
+/* ── Contenu fiche dans la modale ───────────────────────────── */
+.modal-fiche__nom {
+  font-size: clamp(28px, 6vw, 42px);
+  font-weight: 700;
+  opacity: 0.75;
+  margin: 0;
+  padding: 1.75rem 1.5rem 0.5rem;
+  flex-shrink: 0;
+  padding-right: 3rem; /* espace pour le bouton close */
+}
+
+.modal-fiche__scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem 1.5rem 1.5rem;
+}
+
+.modal-fiche__loading {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.4;
+  font-style: italic;
+}
+
+.modal-fiche__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.modal-fiche__section-label {
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.5;
+  margin: 0;
+}
+
+.modal-fiche__section-body {
+  font-size: 16px;
+  line-height: 1.75;
+
+  :global(p) {
+    text-indent: 1.4em;
+    margin: 0 0 0.5em;
+
+    &:first-child { text-indent: 0; }
+  }
+
+  :global(ul), :global(ol) {
+    padding-left: 1.4em;
+    margin: 0 0 0.5em;
+  }
+
+  :global(li) { margin-bottom: 0.35em; }
+}
+
+/* ── Disclaimer ─────────────────────────────────────────────── */
+.modal-overlay--disclaimer {
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-panel--disclaimer {
+  position: static;
+  inset: auto;
+  max-width: 420px;
+  width: calc(100% - 40px);
+  padding: 2rem;
+  border-radius: var(--radius);
+  gap: 1.5rem;
+}
+
+.disclaimer__text {
+  font-size: 17px;
+  line-height: 1.7;
+  margin: 0;
+  text-align: center;
+}
+
+.disclaimer__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.disclaimer__btn {
+  min-height: 44px;
+  padding: 0.7rem 1.25rem;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 16px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition);
+
+  &:focus-visible {
+    outline: 3px solid rgba(0, 0, 0, 0.4);
+    outline-offset: 3px;
+  }
+}
+
+.disclaimer__btn--primary {
+  background: var(--text);
+  color: var(--bg-warm);
+  border: none;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(0, 0, 0, 0.8);
+  }
+}
+
+.disclaimer__btn--secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  opacity: 0.65;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(0, 0, 0, 0.06);
+    opacity: 1;
+  }
+}
+
+/* ── Contenu cycle-info dans la modale ─────────────────────── */
+.cycle-info-modal__intro {
+  font-size: 15px;
+  line-height: 1.7;
+  opacity: 0.7;
+  margin: 0.25rem 0 1.5rem;
+}
+
+.cycle-info-modal__etapes {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.cycle-info-modal__etape {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.cycle-info-modal__num {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.35;
+  min-width: 1.25rem;
+  padding-top: 0.2rem;
+}
+
+.cycle-info-modal__nom {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 0.2rem;
+}
+
+.cycle-info-modal__desc {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.cycle-info-modal__source {
+  font-size: 12px;
+  opacity: 0.4;
+  font-style: italic;
+  margin: 0;
+}
+
+/* ── Utilitaire ─────────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

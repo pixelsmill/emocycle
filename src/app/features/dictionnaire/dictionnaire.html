@@ -1,0 +1,95 @@
+<main class="dico" aria-label="Dictionnaire des émotions">
+
+  <header class="dico__header">
+    <a class="dico__retour" routerLink="/" aria-label="Retour à l'accueil">←</a>
+    <h1 class="dico__titre">Dictionnaire des émotions</h1>
+  </header>
+
+  @if (isLoading()) {
+    <p class="dico__loading" aria-live="polite">Chargement…</p>
+  } @else {
+    <div class="dico__contenu">
+      @for (groupe of groupes(); track groupe.id) {
+        <section class="dico__groupe" [attr.aria-label]="'Famille ' + groupe.label">
+          <h2 class="dico__famille dico__famille--{{ groupe.id }}">{{ groupe.label }}</h2>
+          <ul class="dico__liste" role="list">
+            @for (emotion of groupe.emotions; track emotion.id) {
+              <li class="dico__item">
+                <button
+                  class="dico__btn"
+                  [attr.aria-label]="'Lire la fiche — ' + emotion.name"
+                  (click)="openFiche(emotion)"
+                >{{ emotion.name }}</button>
+              </li>
+            }
+          </ul>
+        </section>
+      }
+    </div>
+  }
+
+</main>
+
+<!-- ── Modale fiche ──────────────────────────────────────────── -->
+@if (modalOpen()) {
+  <div
+    class="modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="dico-modal-titre"
+    (click)="closeFiche()"
+    (keydown)="onKeydown($event)"
+  >
+    <div class="modal-panel" (click)="$event.stopPropagation()">
+
+      <button class="modal-close" aria-label="Fermer la fiche" autofocus (click)="closeFiche()">
+        <tabler-icon icon="x" [size]="18" />
+      </button>
+
+      @if (modalEmotion(); as e) {
+        <h2 class="modal-fiche__nom" id="dico-modal-titre">{{ e.name }}</h2>
+      }
+
+      @if (modalLoading()) {
+        <div class="modal-fiche__loading" aria-live="polite" aria-busy="true">
+          <span class="sr-only">Chargement…</span>
+        </div>
+      }
+
+      @if (!modalLoading() && modalContent(); as c) {
+        <div class="modal-fiche__scroll">
+
+          @if (c.examples) {
+            <section class="modal-fiche__section">
+              <h3 class="modal-fiche__section-label">Exemples</h3>
+              <div class="modal-fiche__section-body" [innerHTML]="c.examples | fiche_md"></div>
+            </section>
+          }
+
+          @if (c.description) {
+            <section class="modal-fiche__section">
+              <h3 class="modal-fiche__section-label">Définition</h3>
+              <div class="modal-fiche__section-body" [innerHTML]="c.description | fiche_md"></div>
+            </section>
+          }
+
+          @if (c.utility) {
+            <section class="modal-fiche__section">
+              <h3 class="modal-fiche__section-label">À quoi ça sert</h3>
+              <div class="modal-fiche__section-body" [innerHTML]="c.utility | fiche_md"></div>
+            </section>
+          }
+
+          @if (c.typicalErrors) {
+            <section class="modal-fiche__section">
+              <h3 class="modal-fiche__section-label">Erreurs typiques</h3>
+              <div class="modal-fiche__section-body" [innerHTML]="c.typicalErrors | fiche_md"></div>
+            </section>
+          }
+
+        </div>
+      }
+
+    </div>
+  </div>
+}

@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { Emotion, EmotionFamily } from '../../models/emotion.model';
+import { TablerIconComponent } from '@tabler/icons-angular';
 import { EmotionService } from '../../services/emotion.service';
 import { EmotionSessionService } from '../../services/emotion-session.service';
 import { ThemeService } from '../../services/theme.service';
@@ -31,6 +32,7 @@ const VALID_FAMILIES: EmotionFamily[] = [
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './liste.html',
   styleUrl: './liste.scss',
+  imports: [TablerIconComponent],
   host: { class: 'liste-host' },
 })
 export class ListeComponent implements OnInit {
@@ -67,7 +69,7 @@ export class ListeComponent implements OnInit {
 
   onEmotionSelect(emotion: Emotion): void {
     this.session.select(emotion);
-    this.router.navigate(['/emotion', emotion.id]);
+    this.router.navigate(['/cycle', emotion.id]);
   }
 
   goBack(): void {

@@ -6,10 +6,28 @@
   (touchend)="onTouchEnd($event)"
 >
 
-  <!-- Nom de l'émotion en haut -->
+  <!-- Header : [livre] nom de l'émotion [?] -->
   @if (emotion(); as e) {
     <header class="cycle__header">
-      <p class="cycle__emotion-nom">{{ e.name }}</p>
+      <div class="cycle__header-row">
+        <button
+          class="cycle__icon-btn"
+          [attr.aria-label]="'Lire la fiche — ' + e.name"
+          (click)="openFiche()"
+        >
+          <tabler-icon icon="book" [size]="18" />
+        </button>
+
+        <span class="cycle__emotion-nom">{{ e.name }}</span>
+
+        <button
+          class="cycle__icon-btn"
+          aria-label="Comment fonctionne le cycle ?"
+          (click)="goHelp()"
+        >
+          <tabler-icon icon="help-circle" [size]="18" />
+        </button>
+      </div>
     </header>
   }
 
@@ -26,13 +44,8 @@
           [attr.aria-label]="step.name"
           [attr.aria-hidden]="i !== currentIndex()"
         >
-          <!-- Nom de l'étape -->
           <p class="cycle__step-name">{{ step.name }}</p>
-
-          <!-- Question principale -->
           <p class="cycle__question">{{ step.question }}</p>
-
-          <!-- Guide -->
           <p class="cycle__guide">{{ step.guide }}</p>
         </div>
       }
@@ -54,20 +67,14 @@
 
   <!-- Boutons de navigation -->
   <div class="cycle__nav" role="navigation" aria-label="Navigation du cycle">
-    <!-- Bouton précédent / retour fiche -->
     <button
       class="cycle__btn cycle__btn--prev"
-      [attr.aria-label]="isFirst() ? 'Retour à la fiche' : 'Étape précédente'"
+      [attr.aria-label]="isFirst() ? 'Retour à la liste' : 'Étape précédente'"
       (click)="goPrev()"
     >
-      @if (isFirst()) {
-        ← Fiche
-      } @else {
-        ←
-      }
+      <tabler-icon icon="arrow-left" [size]="20" />
     </button>
 
-    <!-- Bouton suivant / terminer -->
     <button
       class="cycle__btn cycle__btn--next"
       [attr.aria-label]="isLast() ? 'Terminer le cycle' : 'Étape suivante'"
@@ -76,9 +83,165 @@
       @if (isLast()) {
         Terminer
       } @else {
-        →
+        <tabler-icon icon="arrow-right" [size]="20" />
       }
     </button>
   </div>
 
 </div>
+
+<!-- ── Modale fiche ──────────────────────────────────────────── -->
+@if (ficheModalOpen()) {
+  <div
+    class="modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="fiche-modal-titre"
+    (click)="closeFiche()"
+    (keydown)="onFicheKeydown($event)"
+  >
+    <div class="modal-panel" (click)="$event.stopPropagation()">
+
+      <button class="modal-close" aria-label="Fermer la fiche" autofocus (click)="closeFiche()">
+        <tabler-icon icon="x" [size]="18" />
+      </button>
+
+      @if (emotion(); as e) {
+        <h2 class="modal-fiche__nom" id="fiche-modal-titre">{{ e.name }}</h2>
+      }
+
+      @if (ficheLoading()) {
+        <div class="modal-fiche__loading" aria-live="polite" aria-busy="true">
+          <span class="sr-only">Chargement…</span>
+        </div>
+      }
+
+      @if (!ficheLoading() && ficheContent(); as c) {
+        <div class="modal-fiche__scroll">
+
+          @if (c.examples) {
+            <section class="modal-fiche__section">
+              <h3 class="modal-fiche__section-label">Exemples</h3>
+              <div class="modal-fiche__section-body" [innerHTML]="c.examples | fiche_md"></div>
+            </section>
+          }
+
+          @if (c.description) {
+            <section class="modal-fiche__section">
+              <h3 class="modal-fiche__section-label">Définition</h3>
+              <div class="modal-fiche__section-body" [innerHTML]="c.description | fiche_md"></div>
+            </section>
+          }
+
+          @if (c.utility) {
+            <section class="modal-fiche__section">
+              <h3 class="modal-fiche__section-label">À quoi ça sert</h3>
+              <div class="modal-fiche__section-body" [innerHTML]="c.utility | fiche_md"></div>
+            </section>
+          }
+
+          @if (c.typicalErrors) {
+            <section class="modal-fiche__section">
+              <h3 class="modal-fiche__section-label">Erreurs typiques</h3>
+              <div class="modal-fiche__section-body" [innerHTML]="c.typicalErrors | fiche_md"></div>
+            </section>
+          }
+
+        </div>
+      }
+    </div>
+  </div>
+}
+
+<!-- ── Modale cycle-info ────────────────────────────────────── -->
+@if (cycleInfoModalOpen()) {
+  <div
+    class="modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cycle-info-modal-titre"
+    (click)="closeCycleInfo()"
+    (keydown)="onCycleInfoKeydown($event)"
+  >
+    <div class="modal-panel" (click)="$event.stopPropagation()">
+
+      <button class="modal-close" aria-label="Fermer" autofocus (click)="closeCycleInfo()">
+        <tabler-icon icon="x" [size]="18" />
+      </button>
+
+      <div class="modal-fiche__scroll">
+        <h2 class="modal-fiche__nom" id="cycle-info-modal-titre">Le cycle de vie des émotions</h2>
+        <p class="cycle-info-modal__intro">
+          Chaque émotion porte un message. Quand on lui laisse la place de se dérouler,
+          elle livre ce message.
+        </p>
+
+        <ol class="cycle-info-modal__etapes">
+          <li class="cycle-info-modal__etape">
+            <span class="cycle-info-modal__num" aria-hidden="true">1</span>
+            <div>
+              <h3 class="cycle-info-modal__nom">Émergence</h3>
+              <p class="cycle-info-modal__desc">Reconnaître que l'émotion est là, sans l'expliquer ni la juger.</p>
+            </div>
+          </li>
+          <li class="cycle-info-modal__etape">
+            <span class="cycle-info-modal__num" aria-hidden="true">2</span>
+            <div>
+              <h3 class="cycle-info-modal__nom">Sensation</h3>
+              <p class="cycle-info-modal__desc">Les émotions vivent dans le corps avant d'avoir des mots. Observer sans interpréter.</p>
+            </div>
+          </li>
+          <li class="cycle-info-modal__etape">
+            <span class="cycle-info-modal__num" aria-hidden="true">3</span>
+            <div>
+              <h3 class="cycle-info-modal__nom">Reconnaissance</h3>
+              <p class="cycle-info-modal__desc">L'émotion n'est pas un problème — c'est le signal d'un besoin. C'est ici que le message se révèle.</p>
+            </div>
+          </li>
+          <li class="cycle-info-modal__etape">
+            <span class="cycle-info-modal__num" aria-hidden="true">4</span>
+            <div>
+              <h3 class="cycle-info-modal__nom">Expression</h3>
+              <p class="cycle-info-modal__desc">Mettre des mots sur ce qu'on ressent et ce dont on a besoin, sans censure.</p>
+            </div>
+          </li>
+          <li class="cycle-info-modal__etape">
+            <span class="cycle-info-modal__num" aria-hidden="true">5</span>
+            <div>
+              <h3 class="cycle-info-modal__nom">Action</h3>
+              <p class="cycle-info-modal__desc">Une fois le besoin entendu, l'émotion s'apaise. Une petite action suffit.</p>
+            </div>
+          </li>
+        </ol>
+
+      </div>
+
+    </div>
+  </div>
+}
+
+<!-- ── Modale disclaimer (première visite) ──────────────────── -->
+@if (showDisclaimer()) {
+  <div
+    class="modal-overlay modal-overlay--disclaimer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="disclaimer-titre"
+    (keydown)="onDisclaimerKeydown($event)"
+  >
+    <div class="modal-panel modal-panel--disclaimer">
+      <p class="disclaimer__text" id="disclaimer-titre">
+        Avant d'explorer votre émotion, prenez le temps de découvrir les 5 étapes
+        du cycle de vie des émotions.
+      </p>
+      <div class="disclaimer__actions">
+        <button class="disclaimer__btn disclaimer__btn--primary" autofocus (click)="dismissDisclaimer(true)">
+          Découvrir
+        </button>
+        <button class="disclaimer__btn disclaimer__btn--secondary" (click)="dismissDisclaimer(false)">
+          Passer cette étape
+        </button>
+      </div>
+    </div>
+  </div>
+}

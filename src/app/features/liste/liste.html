@@ -2,6 +2,7 @@
 
   <header class="liste__header">
     <h1 class="liste__titre">{{ familleLabel() }}</h1>
+    <p class="liste__consigne">Quelle émotion vivez-vous maintenant ?</p>
   </header>
 
   <div class="liste__scroll">
@@ -21,7 +22,9 @@
   </div>
 
   <div class="liste__nav-bas">
-    <button class="liste__btn" aria-label="Retour à l'accueil" (click)="goBack()">←</button>
+    <button class="liste__btn" aria-label="Retour à l'accueil" (click)="goBack()">
+      <tabler-icon icon="arrow-left" [size]="20" />
+    </button>
   </div>
 
 </div>
