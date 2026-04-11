@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   OnInit,
   computed,
   inject,
@@ -10,17 +9,22 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { Emotion } from '../../models/emotion.model';
+import { Emotion, EmotionContent } from '../../models/emotion.model';
 import { EmotionService } from '../../services/emotion.service';
+import { ContentService } from '../../services/content.service';
 import { ThemeService } from '../../services/theme.service';
+import { CycleSessionService } from '../../services/cycle-session.service';
 import { CYCLE_TEMPLATES, CycleStep, interpolate } from '../../data/cycle-templates';
+import { MarkdownPipe } from '../../pipes/markdown.pipe';
+import { TablerIconComponent } from '@tabler/icons-angular';
 
-const SWIPE_THRESHOLD = 50; // px minimum pour déclencher un swipe
+const SWIPE_THRESHOLD = 50;
 const TOTAL_STEPS = 5;
 
 @Component({
   selector: 'app-cycle',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MarkdownPipe, TablerIconComponent],
   templateUrl: './cycle.html',
   styleUrl: './cycle.scss',
   host: { class: 'cycle-host' },
@@ -29,8 +33,9 @@ export class CycleComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly emotionService = inject(EmotionService);
+  private readonly contentService = inject(ContentService);
   private readonly theme = inject(ThemeService);
-  private readonly el = inject(ElementRef);
+  private readonly cycleSession = inject(CycleSessionService);
 
   private readonly emotionId = toSignal(
     this.route.paramMap.pipe(map((p) => p.get('emotionId') ?? '')),
@@ -43,7 +48,6 @@ export class CycleComponent implements OnInit {
 
   readonly currentIndex = signal(0);
 
-  /** Steps interpolés avec le nom de l'émotion */
   readonly steps = computed<CycleStep[]>(() => {
     const e = this.emotion();
     if (!e) return CYCLE_TEMPLATES['negative'];
@@ -58,10 +62,20 @@ export class CycleComponent implements OnInit {
   readonly isFirst = computed(() => this.currentIndex() === 0);
   readonly isLast = computed(() => this.currentIndex() === TOTAL_STEPS - 1);
 
-  /** translateX pour le slide CSS */
   readonly slideTransform = computed(
     () => `translateX(-${this.currentIndex() * 100}%)`,
   );
+
+  // ── Modale fiche ─────────────────────────────────────────────
+  readonly ficheModalOpen = signal(false);
+
+  // ── Modale cycle-info ─────────────────────────────────────────
+  readonly cycleInfoModalOpen = signal(false);
+  readonly ficheContent = signal<EmotionContent | null>(null);
+  readonly ficheLoading = signal(false);
+
+  // ── Disclaimer première visite ────────────────────────────────
+  readonly showDisclaimer = signal(this.cycleSession.shouldShowDisclaimer);
 
   // ── Swipe touch ──────────────────────────────────────────────
   private touchStartX = 0;
@@ -78,7 +92,6 @@ export class CycleComponent implements OnInit {
     if (emotion) {
       this.theme.applyFamily(emotion.family);
     } else {
-      // Attendre le chargement des émotions
       setTimeout(() => {
         const e = this.emotionService.getById(id);
         if (!e) { this.router.navigate(['/']); return; }
@@ -97,11 +110,63 @@ export class CycleComponent implements OnInit {
 
   goPrev(): void {
     if (this.isFirst()) {
-      this.router.navigate(['/emotion', this.emotionId()]);
+      const family = this.emotion()?.family;
+      this.router.navigate(family ? ['/famille', family] : ['/']);
     } else {
       this.currentIndex.update((i) => i - 1);
     }
   }
+
+  // ── Fiche modale ─────────────────────────────────────────────
+
+  openFiche(): void {
+    this.ficheModalOpen.set(true);
+    if (!this.ficheContent() && !this.ficheLoading()) {
+      this.ficheLoading.set(true);
+      this.contentService.loadContent(this.emotionId()).subscribe((c) => {
+        this.ficheContent.set(c);
+        this.ficheLoading.set(false);
+      });
+    }
+  }
+
+  closeFiche(): void {
+    this.ficheModalOpen.set(false);
+  }
+
+  onFicheKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') this.closeFiche();
+  }
+
+  // ── Disclaimer ───────────────────────────────────────────────
+
+  dismissDisclaimer(discover: boolean): void {
+    this.cycleSession.markDisclaimerShown();
+    this.showDisclaimer.set(false);
+    if (discover) {
+      this.cycleInfoModalOpen.set(true);
+    }
+  }
+
+  onDisclaimerKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') this.dismissDisclaimer(false);
+  }
+
+  // ── Aide ─────────────────────────────────────────────────────
+
+  goHelp(): void {
+    this.cycleInfoModalOpen.set(true);
+  }
+
+  closeCycleInfo(): void {
+    this.cycleInfoModalOpen.set(false);
+  }
+
+  onCycleInfoKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') this.closeCycleInfo();
+  }
+
+  // ── Touch ────────────────────────────────────────────────────
 
   onTouchStart(event: TouchEvent): void {
     this.touchStartX = event.touches[0].clientX;

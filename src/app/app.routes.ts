@@ -27,6 +27,16 @@ export const routes: Routes = [
       import('./features/sortie/sortie').then((m) => m.SortieComponent),
   },
   {
+    path: 'cycle-info',
+    loadComponent: () =>
+      import('./features/cycle-info/cycle-info').then((m) => m.CycleInfoComponent),
+  },
+  {
+    path: 'dictionnaire',
+    loadComponent: () =>
+      import('./features/dictionnaire/dictionnaire').then((m) => m.DictionnaireComponent),
+  },
+  {
     path: 'credits',
     loadComponent: () =>
       import('./features/credits/credits').then((m) => m.CreditsComponent),

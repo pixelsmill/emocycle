@@ -13,28 +13,24 @@
   margin-inline: auto;
 }
 
-/* ── Navigation retour ──────────────────────────────────────── */
-.credits__nav {
-  padding-top: 1.5rem;
-  margin-bottom: 2rem;
-}
-
+/* ── Retour ─────────────────────────────────────────────────── */
 .credits__retour {
-  font-size: 14px;
+  display: inline-block;
+  font-size: 20px;
   color: var(--text);
-  opacity: 0.6;
   text-decoration: none;
-  letter-spacing: 0.02em;
+  opacity: 0.5;
+  padding-top: 1.5rem;
+  margin-bottom: 1rem;
 
   &:hover,
   &:focus-visible {
     opacity: 1;
-    text-decoration: underline;
   }
 
   &:focus-visible {
     outline: 3px solid var(--text);
-    outline-offset: 3px;
+    outline-offset: 4px;
     border-radius: 4px;
   }
 }

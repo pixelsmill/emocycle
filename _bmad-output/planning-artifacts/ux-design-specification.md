@@ -515,3 +515,82 @@ Le chemin est le même, les mots changent. La classification positif/négatif es
 2. **Retour possible, jamais imposé** — On peut revenir en arrière mais l'UX encourage la progression.
 3. **Le filet partout** — L'app sait qu'elle touche à l'intime. Les numéros d'écoute ne sont pas un afterthought.
 4. **Pas de cul-de-sac** — Chaque écran mène quelque part. Même [Pas vraiment] propose de recommencer.
+
+---
+
+## Révisions issues du test utilisateur — 2026-04-11
+
+### Parcours principal révisé
+
+La fiche Larivey est **retirée du flux principal**. Le parcours devient :
+
+```
+Accueil → Couleur → Liste → Cycle
+```
+
+La fiche reste accessible à tout moment depuis le cycle, via le nom de l'émotion.
+
+### Accueil — Contenu sous la ligne de flottaison
+
+La zone au-dessus de la fold reste inchangée (titre Émocycle, baseline, 6 ronds).
+
+En dessous, deux encarts en colonnes :
+
+| Colonne gauche | Colonne droite |
+|---|---|
+| Le cycle de vie des émotions | Le dictionnaire des émotions |
+| Texte d'intro court sur le principe du cycle | Texte d'intro court sur la richesse du dico |
+| Bouton [Découvrir] → page cycle | Bouton [Explorer] → page dictionnaire |
+
+> **Note planning :** Ces 2 encarts sous la fold ne sont dans aucune story active — ils feraient partie d'une story à créer (probablement Epic 2 aussi, ou un Epic séparé pour les pages annexes).
+
+### Modale disclaimer — Première visite avant le cycle
+
+Déclenchée en **mémoire vive** (pas de localStorage) à la première entrée dans un cycle de la session. Se réinitialise au F5.
+
+Contenu :
+> *"Afin de tirer le meilleur parti de cette expérience, découvrez les 5 étapes du cycle de vie des émotions."*
+> `[Découvrir]` `[Passer cette étape]`
+
+À partir de la deuxième entrée dans un cycle (même session), la modale n'apparaît plus.
+
+### Bouton [?] — Persistant dans le cycle
+
+Présent sur chaque écran du cycle. Mène à la page d'explication du cycle de vie des émotions (même destination que [Découvrir] de la modale et de l'encart accueil).
+
+### Fiche Larivey — Accessible depuis le cycle
+
+Le **nom de l'émotion** affiché dans le cycle est tappable. Il est accompagné d'une micro-icône livre (📖) comme signal visuel.
+
+Tap → ouvre la fiche en **modale presque full-screen** (marge 20px sur tous les côtés).
+
+### Modale fiche — Spécification
+
+- Marge : 20px sur tous les côtés, quelle que soit la page d'origine (cycle ou dictionnaire)
+- Contenu : fiche Larivey complète (titre 48px, définition, exemples, utilité)
+- Fermeture : croix ou tap en dehors
+
+### Dictionnaire des émotions — Page dédiée
+
+Accessible depuis l'encart accueil. Affiche **toutes les émotions**, y compris celles sans fiche.
+
+**Affichage :**
+- Multi-colonnes (2 colonnes mobile, plus sur desktop), mobile-first
+- Taille de police : 16px
+- Retour à la ligne accepté sur les noms longs
+- Émotions **avec fiche** : gras, cliquables → modale fiche (20px margin)
+- Émotions **sans fiche** : poids normal, non cliquables
+
+### Tableau de synthèse des décisions
+
+| Sujet | Décision |
+|---|---|
+| Parcours principal | Couleur → Liste → Cycle (fiche retirée du flux) |
+| Fiche dans le cycle | Tap sur nom de l'émotion + micro-icône livre → modale |
+| Modale fiche | Presque full-screen, marge 20px, quelle que soit l'origine |
+| Explication du cycle | [?] dans le cycle → page dédiée |
+| Première visite cycle | Modale disclaimer (mémoire vive, reset au F5) |
+| Accueil sous la fold | 2 encarts : cycle de vie + dictionnaire |
+| Dictionnaire | Page dédiée, toutes émotions, multi-colonnes 16px |
+| Émotions avec fiche | Gras, cliquables → modale fiche |
+| Émotions sans fiche | Normal, non cliquables |

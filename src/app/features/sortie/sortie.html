@@ -15,7 +15,7 @@
   <div class="sortie__content">
 
     @if (state() === 'initial') {
-      <p class="sortie__message">Prenez soin de vous.<br>Revenez quand vous voulez.</p>
+      <p class="sortie__message">J'espère que cette parenthèse vous a fait du bien.</p>
 
       <div class="sortie__actions">
         <button
@@ -23,7 +23,7 @@
           aria-label="Merci, ce cycle m'a aidé"
           (click)="onMerci()"
         >
-          Merci
+          Oui, merci
         </button>
         <button
           class="sortie__btn sortie__btn--pas-vraiment"
@@ -36,19 +36,19 @@
     }
 
     @if (state() === 'merci') {
-      <p class="sortie__message">C'est bien. Continuez à vous écouter.</p>
+      <p class="sortie__message">Prenez soin de vous.<br>Revenez quand vous voulez.</p>
       <button
         class="sortie__btn sortie__btn--recommencer"
-        aria-label="Recommencer depuis l'accueil"
+        aria-label="Retour à l'accueil"
         (click)="recommencer()"
       >
-        Recommencer
+        Retour à l'accueil
       </button>
     }
 
     @if (state() === 'pas-vraiment') {
       <p class="sortie__message sortie__message--humble">
-        Ce n'est pas grave. Vous avez eu le courage d'essayer, et c'est déjà beaucoup.
+        Ça ne marche pas à tous les coups. Vous avez pris le temps d'essayer, et c'est déjà beaucoup. Réessayez si vous le voulez et prenez soin de vous.
       </p>
       <button
         class="sortie__btn sortie__btn--recommencer"

@@ -1,0 +1,135 @@
+:host.cycle-info-host {
+  display: block;
+  min-height: 100dvh;
+}
+
+.cycle-info {
+  max-width: 600px;
+  margin-inline: auto;
+  padding: 3rem 1.5rem 4rem;
+  color: var(--text);
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.cycle-info__header {
+  margin-bottom: 3rem;
+}
+
+.cycle-info__titre {
+  font-size: clamp(28px, 6vw, 42px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 1.25rem;
+}
+
+.cycle-info__intro {
+  font-size: 17px;
+  line-height: 1.75;
+  opacity: 0.75;
+  margin: 0;
+}
+
+/* ── Liste des étapes ────────────────────────────────────────── */
+.cycle-info__etapes {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cycle-info__etape {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.cycle-info__num {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.35;
+  min-width: 1.5rem;
+  padding-top: 0.3rem;
+}
+
+.cycle-info__etape-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cycle-info__etape-nom {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.cycle-info__etape-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  opacity: 0.72;
+  margin: 0;
+}
+
+/* ── Source ──────────────────────────────────────────────────── */
+.cycle-info__source {
+  font-size: 13px;
+  opacity: 0.45;
+  margin: 0 0 3rem;
+  font-style: italic;
+}
+
+/* ── CTA ─────────────────────────────────────────────────────── */
+.cycle-info__cta {
+  display: block;
+  margin-top: 3rem;
+  padding: 0.9rem 1.5rem;
+  border: 1.5px solid var(--text);
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--text);
+  text-decoration: none;
+  text-align: center;
+  transition: background-color var(--transition), color var(--transition);
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--text);
+    color: var(--bg-warm);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--text);
+    outline-offset: 3px;
+  }
+}
+
+/* ── Retour ──────────────────────────────────────────────────── */
+.cycle-info__retour {
+  display: inline-block;
+  font-size: 20px;
+  font-family: inherit;
+  color: var(--text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.5;
+  margin-bottom: 1rem;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--text);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+}
