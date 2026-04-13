@@ -34,8 +34,8 @@ export class EmotionService {
   }
 
   getByFamily(family: EmotionFamily): Emotion[] {
-    return this.emotions().filter(
-      (e) => e.family === family && e.type === 'simple',
-    );
+    return this.emotions()
+      .filter((e) => e.family === family)
+      .sort((a, b) => a.name.localeCompare(b.name, 'fr'));
   }
 }

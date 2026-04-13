@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { Emotion, EmotionFamily } from '../../models/emotion.model';
+import { Emotion, EmotionFamily, EmotionType } from '../../models/emotion.model';
 import { TablerIconComponent } from '@tabler/icons-angular';
 import { EmotionService } from '../../services/emotion.service';
 import { EmotionSessionService } from '../../services/emotion-session.service';
@@ -26,6 +26,14 @@ const FAMILLE_LABELS: Record<EmotionFamily, string> = {
 const VALID_FAMILIES: EmotionFamily[] = [
   'joie', 'amour', 'desir', 'tristesse', 'colere', 'peur',
 ];
+
+const TYPE_LABELS: Record<EmotionType, string> = {
+  simple:    'Émotion simple',
+  mixte:     'Émotion mixte',
+  repoussee: 'Émotion repoussée',
+  pseudo:    'Pseudo-émotion',
+  inconnu:   'Type inconnu',
+};
 
 @Component({
   selector: 'app-liste',
@@ -65,6 +73,10 @@ export class ListeComponent implements OnInit {
       return;
     }
     this.theme.applyFamily(id as EmotionFamily);
+  }
+
+  typeLabel(emotion: Emotion): string {
+    return TYPE_LABELS[emotion.type];
   }
 
   onEmotionSelect(emotion: Emotion): void {

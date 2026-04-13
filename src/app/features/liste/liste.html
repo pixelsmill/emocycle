@@ -11,6 +11,7 @@
         <button
           class="liste__item"
           [attr.aria-label]="'Choisir ' + emotion.name"
+          [attr.title]="typeLabel(emotion)"
           (click)="onEmotionSelect(emotion)"
         >
           {{ emotion.name }}

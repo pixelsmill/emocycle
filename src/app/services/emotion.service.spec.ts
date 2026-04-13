@@ -70,11 +70,11 @@ describe('EmotionService', () => {
     expect(service.getById('inconnu')).toBeNull();
   });
 
-  it('getByFamily() should return only simple emotions of that family', () => {
+  it('getByFamily() should return all emotions of that family sorted alphabetically (fr)', () => {
     const result = service.getByFamily('colere');
 
-    // frustration is type 'pseudo', must be excluded
-    expect(result).toHaveLength(1);
-    expect(result[0].id).toBe('colere');
+    // Both colere (simple) and frustration (pseudo) must be included now.
+    expect(result).toHaveLength(2);
+    expect(result.map((e) => e.id)).toEqual(['colere', 'frustration']);
   });
 });

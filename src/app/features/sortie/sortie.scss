@@ -53,6 +53,14 @@
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
+
+  &--stack {
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 340px;
+  }
 }
 
 /* ── Boutons ────────────────────────────────────────────────── */
@@ -117,4 +125,129 @@
     outline-offset: 2px;
     border-radius: 2px;
   }
+}
+
+/* ── Modales ────────────────────────────────────────────────── */
+/* Copie conforme de cycle.scss:195-304 — refactor global différé. */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: stretch;
+  z-index: 100;
+}
+
+.modal-panel {
+  position: fixed;
+  inset: 20px;
+  background: var(--bg-warm);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--text);
+}
+
+/* Bouton fermeture */
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: background var(--transition);
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(0, 0, 0, 0.12);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(0, 0, 0, 0.4);
+    outline-offset: 3px;
+  }
+}
+
+/* ── Contenu fiche dans la modale ───────────────────────────── */
+.modal-fiche__nom {
+  font-size: clamp(28px, 6vw, 42px);
+  font-weight: 700;
+  opacity: 0.75;
+  margin: 0;
+  padding: 1.75rem 1.5rem 0.5rem;
+  flex-shrink: 0;
+  padding-right: 3rem; /* espace pour le bouton close */
+}
+
+.modal-fiche__scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem 1.5rem 1.5rem;
+}
+
+.modal-fiche__loading {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.4;
+  font-style: italic;
+}
+
+.modal-fiche__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.modal-fiche__section-label {
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.5;
+  margin: 0;
+}
+
+.modal-fiche__section-body {
+  font-size: 16px;
+  line-height: 1.75;
+
+  :global(p) {
+    text-indent: 1.4em;
+    margin: 0 0 0.5em;
+
+    &:first-child { text-indent: 0; }
+  }
+
+  :global(ul), :global(ol) {
+    padding-left: 1.4em;
+    margin: 0 0 0.5em;
+  }
+
+  :global(li) { margin-bottom: 0.35em; }
+}
+
+/* ── Utilitaire ─────────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

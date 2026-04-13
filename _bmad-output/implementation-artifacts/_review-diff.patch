@@ -1,0 +1,466 @@
+diff --git a/src/app/features/sortie/sortie.html b/src/app/features/sortie/sortie.html
+index 68f19d4..8e97a8d 100644
+--- a/src/app/features/sortie/sortie.html
++++ b/src/app/features/sortie/sortie.html
+@@ -37,26 +37,48 @@
+ 
+     @if (state() === 'merci') {
+       <p class="sortie__message">Prenez soin de vous.<br>Revenez quand vous voulez.</p>
+-      <button
+-        class="sortie__btn sortie__btn--recommencer"
+-        aria-label="Retour à l'accueil"
+-        (click)="recommencer()"
+-      >
+-        Retour à l'accueil
+-      </button>
++      <div class="sortie__actions sortie__actions--stack">
++        @if (emotion(); as e) {
++          <button
++            class="sortie__btn sortie__btn--fiche"
++            [attr.aria-label]="'En savoir plus sur ' + emotionNameLc()"
++            (click)="openFiche()"
++          >
++            En savoir plus sur {{ emotionNameLc() }}
++          </button>
++        }
++        <button
++          class="sortie__btn sortie__btn--recommencer"
++          aria-label="Retour à l'accueil"
++          (click)="recommencer()"
++        >
++          Retour à l'accueil
++        </button>
++      </div>
+     }
+ 
+     @if (state() === 'pas-vraiment') {
+       <p class="sortie__message sortie__message--humble">
+         Ça ne marche pas à tous les coups. Vous avez pris le temps d'essayer, et c'est déjà beaucoup. Réessayez si vous le voulez et prenez soin de vous.
+       </p>
+-      <button
+-        class="sortie__btn sortie__btn--recommencer"
+-        aria-label="Recommencer depuis l'accueil"
+-        (click)="recommencer()"
+-      >
+-        Recommencer
+-      </button>
++      <div class="sortie__actions sortie__actions--stack">
++        @if (emotion(); as e) {
++          <button
++            class="sortie__btn sortie__btn--fiche"
++            [attr.aria-label]="'En savoir plus sur ' + emotionNameLc()"
++            (click)="openFiche()"
++          >
++            En savoir plus sur {{ emotionNameLc() }}
++          </button>
++        }
++        <button
++          class="sortie__btn sortie__btn--recommencer"
++          aria-label="Retour à l'accueil"
++          (click)="recommencer()"
++        >
++          Retour à l'accueil
++        </button>
++      </div>
+     }
+ 
+   </div>
+@@ -72,3 +94,66 @@
+   </aside>
+ 
+ </div>
++
++<!-- ── Modale fiche ──────────────────────────────────────────── -->
++@if (ficheModalOpen()) {
++  <div
++    class="modal-overlay"
++    role="dialog"
++    aria-modal="true"
++    aria-labelledby="sortie-fiche-modal-titre"
++    (click)="closeFiche()"
++    (keydown)="onFicheKeydown($event)"
++  >
++    <div class="modal-panel" (click)="$event.stopPropagation()">
++
++      <button class="modal-close" aria-label="Fermer la fiche" autofocus (click)="closeFiche()">
++        <tabler-icon icon="x" [size]="18" />
++      </button>
++
++      @if (emotion(); as e) {
++        <h2 class="modal-fiche__nom" id="sortie-fiche-modal-titre">{{ e.name }}</h2>
++      }
++
++      @if (ficheLoading()) {
++        <div class="modal-fiche__loading" aria-live="polite" aria-busy="true">
++          <span class="sr-only">Chargement…</span>
++        </div>
++      }
++
++      @if (!ficheLoading() && ficheContent(); as c) {
++        <div class="modal-fiche__scroll">
++
++          @if (c.examples) {
++            <section class="modal-fiche__section">
++              <h3 class="modal-fiche__section-label">Exemples</h3>
++              <div class="modal-fiche__section-body" [innerHTML]="c.examples | fiche_md"></div>
++            </section>
++          }
++
++          @if (c.description) {
++            <section class="modal-fiche__section">
++              <h3 class="modal-fiche__section-label">Définition</h3>
++              <div class="modal-fiche__section-body" [innerHTML]="c.description | fiche_md"></div>
++            </section>
++          }
++
++          @if (c.utility) {
++            <section class="modal-fiche__section">
++              <h3 class="modal-fiche__section-label">À quoi ça sert</h3>
++              <div class="modal-fiche__section-body" [innerHTML]="c.utility | fiche_md"></div>
++            </section>
++          }
++
++          @if (c.typicalErrors) {
++            <section class="modal-fiche__section">
++              <h3 class="modal-fiche__section-label">Erreurs typiques</h3>
++              <div class="modal-fiche__section-body" [innerHTML]="c.typicalErrors | fiche_md"></div>
++            </section>
++          }
++
++        </div>
++      }
++    </div>
++  </div>
++}
+diff --git a/src/app/features/sortie/sortie.scss b/src/app/features/sortie/sortie.scss
+index 952cda0..18be55e 100644
+--- a/src/app/features/sortie/sortie.scss
++++ b/src/app/features/sortie/sortie.scss
+@@ -53,6 +53,14 @@
+   gap: 1rem;
+   flex-wrap: wrap;
+   justify-content: center;
++
++  &--stack {
++    flex-direction: column;
++    align-items: stretch;
++    flex-wrap: nowrap;
++    width: 100%;
++    max-width: 340px;
++  }
+ }
+ 
+ /* ── Boutons ────────────────────────────────────────────────── */
+@@ -118,3 +126,128 @@
+     border-radius: 2px;
+   }
+ }
++
++/* ── Modales ────────────────────────────────────────────────── */
++/* Copie conforme de cycle.scss:195-304 — refactor global différé. */
++.modal-overlay {
++  position: fixed;
++  inset: 0;
++  background: rgba(0, 0, 0, 0.45);
++  display: flex;
++  align-items: stretch;
++  z-index: 100;
++}
++
++.modal-panel {
++  position: fixed;
++  inset: 20px;
++  background: var(--bg-warm);
++  border-radius: var(--radius);
++  display: flex;
++  flex-direction: column;
++  overflow: hidden;
++  color: var(--text);
++}
++
++/* Bouton fermeture */
++.modal-close {
++  position: absolute;
++  top: 1rem;
++  right: 1rem;
++  width: 36px;
++  height: 36px;
++  border-radius: 50%;
++  border: 1px solid rgba(0, 0, 0, 0.15);
++  background: rgba(0, 0, 0, 0.05);
++  color: var(--text);
++  cursor: pointer;
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  z-index: 1;
++  transition: background var(--transition);
++
++  &:hover,
++  &:focus-visible {
++    background: rgba(0, 0, 0, 0.12);
++  }
++
++  &:focus-visible {
++    outline: 3px solid rgba(0, 0, 0, 0.4);
++    outline-offset: 3px;
++  }
++}
++
++/* ── Contenu fiche dans la modale ───────────────────────────── */
++.modal-fiche__nom {
++  font-size: clamp(28px, 6vw, 42px);
++  font-weight: 700;
++  opacity: 0.75;
++  margin: 0;
++  padding: 1.75rem 1.5rem 0.5rem;
++  flex-shrink: 0;
++  padding-right: 3rem; /* espace pour le bouton close */
++}
++
++.modal-fiche__scroll {
++  flex: 1;
++  overflow-y: auto;
++  padding: 0.5rem 1.5rem 1.5rem;
++}
++
++.modal-fiche__loading {
++  flex: 1;
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  opacity: 0.4;
++  font-style: italic;
++}
++
++.modal-fiche__section {
++  display: flex;
++  flex-direction: column;
++  gap: 0.6rem;
++  margin-bottom: 2rem;
++}
++
++.modal-fiche__section-label {
++  font-size: 12px;
++  font-weight: 400;
++  text-transform: uppercase;
++  letter-spacing: 0.08em;
++  opacity: 0.5;
++  margin: 0;
++}
++
++.modal-fiche__section-body {
++  font-size: 16px;
++  line-height: 1.75;
++
++  :global(p) {
++    text-indent: 1.4em;
++    margin: 0 0 0.5em;
++
++    &:first-child { text-indent: 0; }
++  }
++
++  :global(ul), :global(ol) {
++    padding-left: 1.4em;
++    margin: 0 0 0.5em;
++  }
++
++  :global(li) { margin-bottom: 0.35em; }
++}
++
++/* ── Utilitaire ─────────────────────────────────────────────── */
++.sr-only {
++  position: absolute;
++  width: 1px;
++  height: 1px;
++  padding: 0;
++  margin: -1px;
++  overflow: hidden;
++  clip: rect(0, 0, 0, 0);
++  white-space: nowrap;
++  border: 0;
++}
+diff --git a/src/app/features/sortie/sortie.spec.ts b/src/app/features/sortie/sortie.spec.ts
+index e76ef9b..2030289 100644
+--- a/src/app/features/sortie/sortie.spec.ts
++++ b/src/app/features/sortie/sortie.spec.ts
+@@ -6,13 +6,19 @@ import { provideHttpClient } from '@angular/common/http';
+ import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+ import { SortieComponent } from './sortie';
+ import { ThemeService } from '../../services/theme.service';
+-import { Emotion } from '../../models/emotion.model';
++import { ContentService } from '../../services/content.service';
++import { Emotion, EmotionContent } from '../../models/emotion.model';
+ 
+ const mockEmotion: Emotion = {
+   id: 'colere', name: 'La colère', family: 'colere',
+   valence: 'negative', type: 'simple', gender: 'f', contentFile: 'colere.md',
+ };
+ 
++const mockAmour: Emotion = {
++  id: 'amour', name: "L'amour", family: 'amour',
++  valence: 'positive', type: 'mixte', gender: 'm', contentFile: 'amour.md',
++};
++
+ function createActivatedRoute(emotionId: string) {
+   return { paramMap: of(convertToParamMap({ emotionId })) };
+ }
+@@ -152,4 +158,82 @@ describe('SortieComponent', () => {
+     expect(spy).toHaveBeenCalledWith('colere');
+     spy.mockRestore();
+   });
++
++  // ── Nouveaux boutons post-choix + modale fiche ────────────────
++
++  it('merci state shows two stacked buttons: fiche + retour accueil', async () => {
++    await setup('colere');
++    component.onMerci();
++    fixture.detectChanges();
++
++    const stack = fixture.nativeElement.querySelector('.sortie__actions--stack');
++    expect(stack).toBeTruthy();
++
++    const fiche = fixture.nativeElement.querySelector('.sortie__btn--fiche');
++    const retour = fixture.nativeElement.querySelector('.sortie__btn--recommencer');
++    expect(fiche?.textContent?.trim()).toBe('En savoir plus sur la colère');
++    expect(retour?.textContent?.trim()).toBe("Retour à l'accueil");
++  });
++
++  it('pas-vraiment state shows two stacked buttons: fiche + retour accueil', async () => {
++    await setup('colere');
++    component.onPasVraiment();
++    fixture.detectChanges();
++
++    const stack = fixture.nativeElement.querySelector('.sortie__actions--stack');
++    expect(stack).toBeTruthy();
++
++    const fiche = fixture.nativeElement.querySelector('.sortie__btn--fiche');
++    const retour = fixture.nativeElement.querySelector('.sortie__btn--recommencer');
++    expect(fiche?.textContent?.trim()).toBe('En savoir plus sur la colère');
++    expect(retour?.textContent?.trim()).toBe("Retour à l'accueil");
++  });
++
++  it('initial state does NOT show a fiche button', async () => {
++    await setup('colere');
++    const fiche = fixture.nativeElement.querySelector('.sortie__btn--fiche');
++    expect(fiche).toBeNull();
++  });
++
++  it('openFiche() sets ficheModalOpen true and calls ContentService.loadContent', async () => {
++    await setup('colere');
++    const contentService = TestBed.inject(ContentService);
++    const fallback: EmotionContent = {
++      examples: null, description: 'd', utility: 'u', typicalErrors: null,
++    };
++    const spy = vi.spyOn(contentService, 'loadContent').mockReturnValue(of(fallback));
++
++    component.openFiche();
++    // NB: on ne déclenche pas detectChanges ici — la modale contient
++    // <tabler-icon icon="x"> qui nécessite un provider global non configuré
++    // dans ce TestBed (bug de setup pré-existant, cf deferred-work.md).
++
++    expect(component.ficheModalOpen()).toBe(true);
++    expect(spy).toHaveBeenCalledWith('colere');
++    expect(component.ficheContent()).toEqual(fallback);
++  });
++
++  it('closeFiche() closes the modal', async () => {
++    await setup('colere');
++    component.openFiche();
++    component.closeFiche();
++    expect(component.ficheModalOpen()).toBe(false);
++  });
++
++  it('onFicheKeydown(Escape) closes the modal', async () => {
++    await setup('colere');
++    component.openFiche();
++    component.onFicheKeydown(new KeyboardEvent('keydown', { key: 'Escape' }));
++    expect(component.ficheModalOpen()).toBe(false);
++  });
++
++  it("emotionNameLc() lowercases the first letter (L'amour → l'amour)", async () => {
++    await setup('amour', [mockAmour]);
++    expect(component.emotionNameLc()).toBe("l'amour");
++  });
++
++  it('emotionNameLc() handles La colère → la colère', async () => {
++    await setup('colere');
++    expect(component.emotionNameLc()).toBe('la colère');
++  });
+ });
+diff --git a/src/app/features/sortie/sortie.ts b/src/app/features/sortie/sortie.ts
+index 585e3d0..cb5d552 100644
+--- a/src/app/features/sortie/sortie.ts
++++ b/src/app/features/sortie/sortie.ts
+@@ -9,14 +9,19 @@ import {
+ import { ActivatedRoute, Router } from '@angular/router';
+ import { toSignal } from '@angular/core/rxjs-interop';
+ import { map } from 'rxjs';
++import { EmotionContent } from '../../models/emotion.model';
+ import { EmotionService } from '../../services/emotion.service';
++import { ContentService } from '../../services/content.service';
+ import { ThemeService } from '../../services/theme.service';
++import { MarkdownPipe } from '../../pipes/markdown.pipe';
++import { TablerIconComponent } from '@tabler/icons-angular';
+ 
+ type SortieState = 'initial' | 'merci' | 'pas-vraiment';
+ 
+ @Component({
+   selector: 'app-sortie',
+   changeDetection: ChangeDetectionStrategy.OnPush,
++  imports: [MarkdownPipe, TablerIconComponent],
+   host: { class: 'sortie-host' },
+   templateUrl: './sortie.html',
+   styleUrl: './sortie.scss',
+@@ -25,6 +30,7 @@ export class SortieComponent implements OnInit {
+   private readonly route = inject(ActivatedRoute);
+   private readonly router = inject(Router);
+   private readonly emotionService = inject(EmotionService);
++  private readonly contentService = inject(ContentService);
+   private readonly theme = inject(ThemeService);
+ 
+   private readonly emotionId = toSignal(
+@@ -36,6 +42,11 @@ export class SortieComponent implements OnInit {
+ 
+   readonly state = signal<SortieState>('initial');
+ 
++  // ── Modale fiche ─────────────────────────────────────────────
++  readonly ficheModalOpen = signal(false);
++  readonly ficheContent = signal<EmotionContent | null>(null);
++  readonly ficheLoading = signal(false);
++
+   ngOnInit(): void {
+     const id = this.emotionId();
+     const emotion = this.emotionService.getById(id);
+@@ -68,4 +79,31 @@ export class SortieComponent implements OnInit {
+     this.theme.resetFamily();
+     this.router.navigate(['/']);
+   }
++
++  // ── Fiche modale ─────────────────────────────────────────────
++
++  openFiche(): void {
++    this.ficheModalOpen.set(true);
++    if (!this.ficheContent() && !this.ficheLoading()) {
++      this.ficheLoading.set(true);
++      this.contentService.loadContent(this.emotionId()).subscribe((c) => {
++        this.ficheContent.set(c);
++        this.ficheLoading.set(false);
++      });
++    }
++  }
++
++  closeFiche(): void {
++    this.ficheModalOpen.set(false);
++  }
++
++  onFicheKeydown(event: KeyboardEvent): void {
++    if (event.key === 'Escape') this.closeFiche();
++  }
++
++  /** Nom de l'émotion avec 1ʳᵉ lettre en minuscule (FR). */
++  readonly emotionNameLc = computed(() => {
++    const n = this.emotion()?.name ?? '';
++    return n ? n.charAt(0).toLocaleLowerCase('fr') + n.slice(1) : '';
++  });
+ }

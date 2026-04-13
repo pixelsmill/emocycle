@@ -37,26 +37,48 @@
 
     @if (state() === 'merci') {
       <p class="sortie__message">Prenez soin de vous.<br>Revenez quand vous voulez.</p>
-      <button
-        class="sortie__btn sortie__btn--recommencer"
-        aria-label="Retour à l'accueil"
-        (click)="recommencer()"
-      >
-        Retour à l'accueil
-      </button>
+      <div class="sortie__actions sortie__actions--stack">
+        @if (emotion(); as e) {
+          <button
+            class="sortie__btn sortie__btn--fiche"
+            [attr.aria-label]="'En savoir plus sur ' + emotionNameLc()"
+            (click)="openFiche()"
+          >
+            En savoir plus sur {{ emotionNameLc() }}
+          </button>
+        }
+        <button
+          class="sortie__btn sortie__btn--recommencer"
+          aria-label="Retour à l'accueil"
+          (click)="recommencer()"
+        >
+          Retour à l'accueil
+        </button>
+      </div>
     }
 
     @if (state() === 'pas-vraiment') {
       <p class="sortie__message sortie__message--humble">
         Ça ne marche pas à tous les coups. Vous avez pris le temps d'essayer, et c'est déjà beaucoup. Réessayez si vous le voulez et prenez soin de vous.
       </p>
-      <button
-        class="sortie__btn sortie__btn--recommencer"
-        aria-label="Recommencer depuis l'accueil"
-        (click)="recommencer()"
-      >
-        Recommencer
-      </button>
+      <div class="sortie__actions sortie__actions--stack">
+        @if (emotion(); as e) {
+          <button
+            class="sortie__btn sortie__btn--fiche"
+            [attr.aria-label]="'En savoir plus sur ' + emotionNameLc()"
+            (click)="openFiche()"
+          >
+            En savoir plus sur {{ emotionNameLc() }}
+          </button>
+        }
+        <button
+          class="sortie__btn sortie__btn--recommencer"
+          aria-label="Retour à l'accueil"
+          (click)="recommencer()"
+        >
+          Retour à l'accueil
+        </button>
+      </div>
     }
 
   </div>
@@ -72,3 +94,66 @@
   </aside>
 
 </div>
+
+<!-- ── Modale fiche ──────────────────────────────────────────── -->
+@if (ficheModalOpen()) {
+  <div
+    class="modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="sortie-fiche-modal-titre"
+    (click)="closeFiche()"
+    (keydown)="onFicheKeydown($event)"
+  >
+    <div class="modal-panel" (click)="$event.stopPropagation()">
+
+      <button class="modal-close" aria-label="Fermer la fiche" autofocus (click)="closeFiche()">
+        <tabler-icon icon="x" [size]="18" />
+      </button>
+
+      @if (emotion(); as e) {
+        <h2 class="modal-fiche__nom" id="sortie-fiche-modal-titre">{{ e.name }}</h2>
+      }
+
+      @if (ficheLoading()) {
+        <div class="modal-fiche__loading" aria-live="polite" aria-busy="true">
+          <span class="sr-only">Chargement…</span>
+        </div>
+      }
+
+      @if (!ficheLoading() && ficheContent(); as c) {
+        <div class="modal-fiche__scroll">
+
+          @if (c.examples) {
+            <section class="modal-fiche__section">
+              <h3 class="modal-fiche__section-label">Exemples</h3>
+              <div class="modal-fiche__section-body" [innerHTML]="c.examples | fiche_md"></div>
+            </section>
+          }
+
+          @if (c.description) {
+            <section class="modal-fiche__section">
+              <h3 class="modal-fiche__section-label">Définition</h3>
+              <div class="modal-fiche__section-body" [innerHTML]="c.description | fiche_md"></div>
+            </section>
+          }
+
+          @if (c.utility) {
+            <section class="modal-fiche__section">
+              <h3 class="modal-fiche__section-label">À quoi ça sert</h3>
+              <div class="modal-fiche__section-body" [innerHTML]="c.utility | fiche_md"></div>
+            </section>
+          }
+
+          @if (c.typicalErrors) {
+            <section class="modal-fiche__section">
+              <h3 class="modal-fiche__section-label">Erreurs typiques</h3>
+              <div class="modal-fiche__section-body" [innerHTML]="c.typicalErrors | fiche_md"></div>
+            </section>
+          }
+
+        </div>
+      }
+    </div>
+  </div>
+}

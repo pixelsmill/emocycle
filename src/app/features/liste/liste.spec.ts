@@ -10,9 +10,10 @@ import { EmotionSessionService } from '../../services/emotion-session.service';
 import { Emotion } from '../../models/emotion.model';
 
 const mockEmotions: Emotion[] = [
-  { id: 'colere',  name: 'La colère',   family: 'colere', valence: 'negative', type: 'simple', gender: 'f', contentFile: 'colere.md' },
-  { id: 'haine',   name: 'La haine',    family: 'colere', valence: 'negative', type: 'simple', gender: 'f', contentFile: 'haine.md' },
-  { id: 'rage',    name: 'La rage',     family: 'colere', valence: 'negative', type: 'simple', gender: 'f', contentFile: 'rage.md' },
+  { id: 'colere',      name: 'La colère',      family: 'colere', valence: 'negative', type: 'simple', gender: 'f', contentFile: 'colere.md' },
+  { id: 'haine',       name: 'La haine',       family: 'colere', valence: 'negative', type: 'simple', gender: 'f', contentFile: 'haine.md' },
+  { id: 'rage',        name: 'La rage',        family: 'colere', valence: 'negative', type: 'simple', gender: 'f', contentFile: 'rage.md' },
+  { id: 'frustration', name: 'La frustration', family: 'colere', valence: 'negative', type: 'pseudo', gender: 'f', contentFile: 'frustration.md' },
 ];
 
 function createActivatedRoute(familleId: string) {
@@ -70,10 +71,27 @@ describe('ListeComponent', () => {
     expect(h1?.textContent?.trim()).toBe('Colères');
   });
 
-  it('should list simple emotions for the family', async () => {
+  it('should list all emotions of the family (simple + complex)', async () => {
     await setup('colere');
     const items = fixture.nativeElement.querySelectorAll('.liste__item');
-    expect(items.length).toBe(3);
+    expect(items.length).toBe(4);
+  });
+
+  it('should expose the emotion type via the native title attribute', async () => {
+    await setup('colere');
+    const items = Array.from(
+      fixture.nativeElement.querySelectorAll('.liste__item'),
+    ) as HTMLElement[];
+
+    const frustrationBtn = items.find(
+      (el) => el.textContent?.trim() === 'La frustration',
+    );
+    const colereBtn = items.find(
+      (el) => el.textContent?.trim() === 'La colère',
+    );
+
+    expect(frustrationBtn?.getAttribute('title')).toBe('Pseudo-émotion');
+    expect(colereBtn?.getAttribute('title')).toBe('Émotion simple');
   });
 
   it('should call ThemeService.applyFamily on init', async () => {

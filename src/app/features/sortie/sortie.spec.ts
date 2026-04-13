@@ -6,11 +6,17 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { SortieComponent } from './sortie';
 import { ThemeService } from '../../services/theme.service';
-import { Emotion } from '../../models/emotion.model';
+import { ContentService } from '../../services/content.service';
+import { Emotion, EmotionContent } from '../../models/emotion.model';
 
 const mockEmotion: Emotion = {
   id: 'colere', name: 'La colère', family: 'colere',
   valence: 'negative', type: 'simple', gender: 'f', contentFile: 'colere.md',
+};
+
+const mockAmour: Emotion = {
+  id: 'amour', name: "L'amour", family: 'amour',
+  valence: 'positive', type: 'mixte', gender: 'm', contentFile: 'amour.md',
 };
 
 function createActivatedRoute(emotionId: string) {
@@ -151,5 +157,83 @@ describe('SortieComponent', () => {
     await setup('colere');
     expect(spy).toHaveBeenCalledWith('colere');
     spy.mockRestore();
+  });
+
+  // ── Nouveaux boutons post-choix + modale fiche ────────────────
+
+  it('merci state shows two stacked buttons: fiche + retour accueil', async () => {
+    await setup('colere');
+    component.onMerci();
+    fixture.detectChanges();
+
+    const stack = fixture.nativeElement.querySelector('.sortie__actions--stack');
+    expect(stack).toBeTruthy();
+
+    const fiche = fixture.nativeElement.querySelector('.sortie__btn--fiche');
+    const retour = fixture.nativeElement.querySelector('.sortie__btn--recommencer');
+    expect(fiche?.textContent?.trim()).toBe('En savoir plus sur la colère');
+    expect(retour?.textContent?.trim()).toBe("Retour à l'accueil");
+  });
+
+  it('pas-vraiment state shows two stacked buttons: fiche + retour accueil', async () => {
+    await setup('colere');
+    component.onPasVraiment();
+    fixture.detectChanges();
+
+    const stack = fixture.nativeElement.querySelector('.sortie__actions--stack');
+    expect(stack).toBeTruthy();
+
+    const fiche = fixture.nativeElement.querySelector('.sortie__btn--fiche');
+    const retour = fixture.nativeElement.querySelector('.sortie__btn--recommencer');
+    expect(fiche?.textContent?.trim()).toBe('En savoir plus sur la colère');
+    expect(retour?.textContent?.trim()).toBe("Retour à l'accueil");
+  });
+
+  it('initial state does NOT show a fiche button', async () => {
+    await setup('colere');
+    const fiche = fixture.nativeElement.querySelector('.sortie__btn--fiche');
+    expect(fiche).toBeNull();
+  });
+
+  it('openFiche() sets ficheModalOpen true and calls ContentService.loadContent', async () => {
+    await setup('colere');
+    const contentService = TestBed.inject(ContentService);
+    const fallback: EmotionContent = {
+      examples: null, description: 'd', utility: 'u', typicalErrors: null,
+    };
+    const spy = vi.spyOn(contentService, 'loadContent').mockReturnValue(of(fallback));
+
+    component.openFiche();
+    // NB: on ne déclenche pas detectChanges ici — la modale contient
+    // <tabler-icon icon="x"> qui nécessite un provider global non configuré
+    // dans ce TestBed (bug de setup pré-existant, cf deferred-work.md).
+
+    expect(component.ficheModalOpen()).toBe(true);
+    expect(spy).toHaveBeenCalledWith('colere');
+    expect(component.ficheContent()).toEqual(fallback);
+  });
+
+  it('closeFiche() closes the modal', async () => {
+    await setup('colere');
+    component.openFiche();
+    component.closeFiche();
+    expect(component.ficheModalOpen()).toBe(false);
+  });
+
+  it('onFicheKeydown(Escape) closes the modal', async () => {
+    await setup('colere');
+    component.openFiche();
+    component.onFicheKeydown(new KeyboardEvent('keydown', { key: 'Escape' }));
+    expect(component.ficheModalOpen()).toBe(false);
+  });
+
+  it("emotionNameLc() lowercases the first letter (L'amour → l'amour)", async () => {
+    await setup('amour', [mockAmour]);
+    expect(component.emotionNameLc()).toBe("l'amour");
+  });
+
+  it('emotionNameLc() handles La colère → la colère', async () => {
+    await setup('colere');
+    expect(component.emotionNameLc()).toBe('la colère');
   });
 });
