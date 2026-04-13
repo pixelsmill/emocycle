@@ -17,11 +17,19 @@
       <nav class="accueil__palette" aria-label="Choisir une famille d'émotions">
         @for (famille of familles; track famille.id) {
           <button
-            class="accueil__rond"
-            [class]="'accueil__rond--' + famille.id"
+            [class]="'accueil__rond accueil__rond--' + famille.id"
             [attr.aria-label]="famille.ariaLabel"
             (click)="onFamilleSelect(famille)"
           >
+            <div class="accueil__rond-wrapper">
+              <div class="accueil__rond-cercle"></div>
+              <img
+                class="accueil__rond-face"
+                [src]="famille.face"
+                alt=""
+                aria-hidden="true"
+              >
+            </div>
             <span class="accueil__rond-label" aria-hidden="true">{{ famille.label }}</span>
           </button>
         }

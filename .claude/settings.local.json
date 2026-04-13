@@ -18,7 +18,16 @@
       "Bash(node -e \"const d=require\\('./public/data/emotions.json'\\); const t={}; d.forEach\\(e=>t[e.type]=\\(t[e.type]||0\\)+1\\); console.log\\(t\\); console.log\\('total:', d.length\\)\")",
       "Bash(node -e \"const d=require\\('./public/data/emotions.json'\\); d.filter\\(e=>e.type==='pseudo'\\).slice\\(0,5\\).forEach\\(e=>console.log\\(e.id, e.name\\)\\)\")",
       "Bash(node -e \"require\\('sharp'\\)\")",
-      "Bash(node -e ':*)"
+      "Bash(node -e ':*)",
+      "Bash(py --version)",
+      "Bash(where python:*)",
+      "Bash(where py:*)",
+      "Bash(where python3:*)",
+      "Bash(ls /c/Python*)",
+      "Read(//c/Users/HubertBLEIN/AppData/Local/Programs/**)",
+      "Bash(node -e \"require\\('sharp'\\); console.log\\('sharp ok'\\)\")",
+      "Bash(node -e \"require\\('jimp'\\); console.log\\('jimp ok'\\)\")",
+      "Bash(node)"
     ]
   }
 }

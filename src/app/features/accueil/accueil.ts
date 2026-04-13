@@ -8,15 +8,16 @@ interface FamilleItem {
   id: EmotionFamily;
   label: string;
   ariaLabel: string;
+  face: string;
 }
 
 const FAMILLES: FamilleItem[] = [
-  { id: 'joie',      label: 'Joies',      ariaLabel: 'Choisir la famille Joies' },
-  { id: 'amour',     label: 'Amours',     ariaLabel: 'Choisir la famille Amours' },
-  { id: 'desir',     label: 'Désirs',     ariaLabel: 'Choisir la famille Désirs' },
-  { id: 'tristesse', label: 'Tristesses', ariaLabel: 'Choisir la famille Tristesses' },
-  { id: 'colere',    label: 'Colères',    ariaLabel: 'Choisir la famille Colères' },
-  { id: 'peur',      label: 'Peurs',      ariaLabel: 'Choisir la famille Peurs' },
+  { id: 'joie',      label: 'Joies',      ariaLabel: 'Choisir la famille Joies',      face: '/images/output/face_08.jpg' },
+  { id: 'amour',     label: 'Amours',     ariaLabel: 'Choisir la famille Amours',     face: '/images/output/face_10.jpg' },
+  { id: 'desir',     label: 'Désirs',     ariaLabel: 'Choisir la famille Désirs',     face: '/images/output/face_11.jpg' },
+  { id: 'tristesse', label: 'Tristesses', ariaLabel: 'Choisir la famille Tristesses', face: '/images/output/face_12.jpg' },
+  { id: 'colere',    label: 'Colères',    ariaLabel: 'Choisir la famille Colères',    face: '/images/output/face_05.jpg' },
+  { id: 'peur',      label: 'Peurs',      ariaLabel: 'Choisir la famille Peurs',      face: '/images/output/face_09.jpg' },
 ];
 
 @Component({

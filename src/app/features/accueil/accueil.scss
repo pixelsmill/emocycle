@@ -4,7 +4,7 @@
 
 /* ── Hero (above fold) ───────────────────────────────────────── */
 .accueil__hero {
-  min-height: 80vh;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,22 +70,24 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 0;
+  background-color: #f2ede3;
+  padding: 20px 40px;
+  margin: -20px;
 }
 
 .accueil__rond {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
+  position: relative;
 
-  /* Taille tactile ≥ 44px */
-  min-width: 72px;
-  min-height: 44px;
+  width: 95px;
 
   &:focus-visible {
     outline: 3px solid var(--text);
@@ -94,29 +96,63 @@
   }
 }
 
+/* Wrapper image + cercle */
+.accueil__rond-wrapper {
+  position: relative;
+  width: 95px;
+  height: 115px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Cercle coloré */
-.accueil__rond::before {
-  content: '';
-  display: block;
+.accueil__rond-cercle {
   width: 72px;
   height: 72px;
   border-radius: 50%;
   transition: transform var(--transition), box-shadow var(--transition);
 }
 
-.accueil__rond:hover::before,
-.accueil__rond:focus-visible::before {
+.accueil__rond:hover .accueil__rond-cercle,
+.accueil__rond:focus-visible .accueil__rond-cercle {
   transform: scale(1.08);
+}
+
+.accueil__rond:hover .accueil__rond-face,
+.accueil__rond:focus-visible .accueil__rond-face {
+  transform: scale(1.1) rotate(15deg);
+}
+
+.accueil__rond:nth-child(odd):hover .accueil__rond-face,
+.accueil__rond:nth-child(odd):focus-visible .accueil__rond-face {
+  transform: scale(1.1) rotate(-15deg);
+}
+
+.accueil__rond:hover .accueil__rond-cercle,
+.accueil__rond:focus-visible .accueil__rond-cercle {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* Couleurs des ronds par famille */
-.accueil__rond--joie::before      { background-color: var(--color-joie); }
-.accueil__rond--amour::before     { background-color: var(--color-amour); }
-.accueil__rond--desir::before     { background-color: var(--color-desir); }
-.accueil__rond--tristesse::before { background-color: var(--color-tristesse); }
-.accueil__rond--colere::before    { background-color: var(--color-colere); }
-.accueil__rond--peur::before      { background-color: var(--color-peur); }
+.accueil__rond--joie      .accueil__rond-cercle { background-color: var(--color-joie);      }
+.accueil__rond--amour     .accueil__rond-cercle { background-color: var(--color-amour);     }
+.accueil__rond--desir     .accueil__rond-cercle { background-color: var(--color-desir);     }
+.accueil__rond--tristesse .accueil__rond-cercle { background-color: var(--color-tristesse); }
+.accueil__rond--colere    .accueil__rond-cercle { background-color: var(--color-colere);    }
+.accueil__rond--peur      .accueil__rond-cercle { background-color: var(--color-peur);      }
+
+/* Dessin par-dessus le rond */
+.accueil__rond-face {
+  position: absolute;
+  top: -5%;
+  left: -5%;
+  width: 110%;
+  height: 110%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
 
 /* ── Footer crédits ─────────────────────────────────────────── */
 .accueil__footer {
@@ -147,6 +183,7 @@
 
 /* Label sous le rond */
 .accueil__rond-label {
+  margin-top: -10px;
   font-size: 13px;
   font-weight: 400;
   color: var(--text);
