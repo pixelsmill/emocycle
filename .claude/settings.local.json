@@ -16,7 +16,9 @@
       "Bash(node -e \"const m = require\\('@tabler/icons-angular'\\); const keys = Object.keys\\(m\\).filter\\(k => /book|arrow|x$|close/i.test\\(k\\)\\).slice\\(0,30\\); console.log\\(keys.join\\('\\\\n'\\)\\)\")",
       "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); types={}; [types.update\\({e['type']: types.get\\(e['type'],0\\)+1}\\) for e in data]; print\\(types\\)\")",
       "Bash(node -e \"const d=require\\('./public/data/emotions.json'\\); const t={}; d.forEach\\(e=>t[e.type]=\\(t[e.type]||0\\)+1\\); console.log\\(t\\); console.log\\('total:', d.length\\)\")",
-      "Bash(node -e \"const d=require\\('./public/data/emotions.json'\\); d.filter\\(e=>e.type==='pseudo'\\).slice\\(0,5\\).forEach\\(e=>console.log\\(e.id, e.name\\)\\)\")"
+      "Bash(node -e \"const d=require\\('./public/data/emotions.json'\\); d.filter\\(e=>e.type==='pseudo'\\).slice\\(0,5\\).forEach\\(e=>console.log\\(e.id, e.name\\)\\)\")",
+      "Bash(node -e \"require\\('sharp'\\)\")",
+      "Bash(node -e ':*)"
     ]
   }
 }

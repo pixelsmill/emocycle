@@ -22,6 +22,9 @@
       "resources": {
         "files": [
           "/assets/**",
+          "/images/**",
+          "/splash/**",
+          "/screenshots/**",
           "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
       }

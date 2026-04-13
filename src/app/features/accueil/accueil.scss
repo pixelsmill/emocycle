@@ -23,12 +23,15 @@
 
 /* ── Titre ───────────────────────────────────────────────────── */
 .accueil__titre {
-  font-size: clamp(72px, 15vw, 140px);
-  font-weight: 700;
-  color: var(--text);
-  text-align: center;
-  line-height: 1;
-  margin-bottom: 2rem;
+  color: transparent;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 625 / 170;
+  background-image: url('/images/emocycle.svg');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+  margin: 0 0 2rem;
 
   @media (min-width: 640px) {
     margin-bottom: 0;
@@ -48,7 +51,7 @@
     flex-direction: row;
     align-items: baseline;
     gap: 90px;
-    padding-left: 20px;
+    margin-left: -13px;
     text-align: left;
   }
 }
