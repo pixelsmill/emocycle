@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { TablerIconComponent } from '@tabler/icons-angular';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
@@ -9,7 +8,7 @@ import { map } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cycle-info.html',
   styleUrl: './cycle-info.scss',
-  imports: [TablerIconComponent, RouterLink],
+  imports: [RouterLink],
   host: { class: 'cycle-info-host' },
 })
 export class CycleInfoComponent {

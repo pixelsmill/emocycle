@@ -12,12 +12,12 @@ interface FamilleItem {
 }
 
 const FAMILLES: FamilleItem[] = [
-  { id: 'joie',      label: 'Joies',      ariaLabel: 'Choisir la famille Joies',      face: '/images/output/face_08.jpg' },
-  { id: 'amour',     label: 'Amours',     ariaLabel: 'Choisir la famille Amours',     face: '/images/output/face_10.jpg' },
-  { id: 'desir',     label: 'Désirs',     ariaLabel: 'Choisir la famille Désirs',     face: '/images/output/face_11.jpg' },
-  { id: 'tristesse', label: 'Tristesses', ariaLabel: 'Choisir la famille Tristesses', face: '/images/output/face_12.jpg' },
-  { id: 'colere',    label: 'Colères',    ariaLabel: 'Choisir la famille Colères',    face: '/images/output/face_05.jpg' },
-  { id: 'peur',      label: 'Peurs',      ariaLabel: 'Choisir la famille Peurs',      face: '/images/output/face_09.jpg' },
+  { id: 'joie',      label: 'Joies',      ariaLabel: 'Choisir la famille Joies',      face: '/images/face_08.jpg' },
+  { id: 'amour',     label: 'Amours',     ariaLabel: 'Choisir la famille Amours',     face: '/images/face_10.jpg' },
+  { id: 'desir',     label: 'Désirs',     ariaLabel: 'Choisir la famille Désirs',     face: '/images/face_11.jpg' },
+  { id: 'tristesse', label: 'Tristesses', ariaLabel: 'Choisir la famille Tristesses', face: '/images/face_12.jpg' },
+  { id: 'colere',    label: 'Colères',    ariaLabel: 'Choisir la famille Colères',    face: '/images/face_05.jpg' },
+  { id: 'peur',      label: 'Peurs',      ariaLabel: 'Choisir la famille Peurs',      face: '/images/face_09.jpg' },
 ];
 
 @Component({
