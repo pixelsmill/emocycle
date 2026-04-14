@@ -108,15 +108,6 @@
     "contentFile": "jalousie.md"
   },
   {
-    "id": "manipulation",
-    "name": "La manipulation",
-    "family": "colere",
-    "valence": "negative",
-    "type": "pseudo",
-    "gender": "f",
-    "contentFile": "manipulation.md"
-  },
-  {
     "id": "rage",
     "name": "La rage",
     "family": "colere",

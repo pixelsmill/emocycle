@@ -79,7 +79,6 @@ const EMOTION_META: Record<string, EmotionMeta> = {
   'jalousie-amour': { name: "La jalousie amoureuse", family: 'amour',   valence: 'negative', gender: 'f' },
   jalousie:       { name: "La jalousie",            family: 'colere',    valence: 'negative', gender: 'f' },
   malaise:        { name: "Le malaise",             family: 'peur',      valence: 'negative', gender: 'm' },
-  manipulation:   { name: "La manipulation",        family: 'colere',    valence: 'negative', gender: 'f' },
   mepris:         { name: "Le mépris",              family: 'colere',    valence: 'negative', gender: 'm' },
   migraine:       { name: "La migraine",            family: 'tristesse', valence: 'negative', gender: 'f' },
   nausee:         { name: "La nausée",              family: 'peur',      valence: 'negative', gender: 'f' },
